@@ -13,13 +13,13 @@ import random
 gridpoints = [128, 144, 160, 176, 192, 208, 224, 240, 256, 272, 288, 304, 320, 336, 352, 368, 384]
 canvas     = 512  # size of the gif in pixels
 margin     = 128  # distance from edge of canvas 
-num_frames =  32  # number of frames in the animation
+num_frames =  16  # number of frames in the animation
 step       =   0  # steps in looping animation
 
 # draw the canvas
 for frame in range(num_frames):
   newPage(canvas, canvas)
-  frameDuration(1/20)
+  frameDuration(1/2)
   fill(0.8)
   rect(0, 0, canvas, canvas)
   
@@ -66,10 +66,10 @@ for frame in range(num_frames):
     c = (random.choice(gridpoints))
     fill(1, 1, 1)
     stroke(0.5)
-    polygon(
-    oval(a-4, a-4, 8, 8)
-    oval(a-4, b-4, 8, 8)
-    oval(a-4, c-4, 8, 8)
+    strokeWidth(1.5)
+    oval(c-5, a-5, 10, 10)
+    oval(b-5, c-5, 10, 10)
+    oval(a-5, b-5, 10, 10)
     restore()
         
-# saveImage("dbe_2016_21_16_001.gif")
+saveImage("dbe_2016_02_26_v1.gif")
