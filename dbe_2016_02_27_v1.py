@@ -15,15 +15,12 @@ canvas     = 512  # size of the gif in pixels
 margin     = 128  # distance from edge of canvas 
 num_frames =  17  # number of frames in the animation
 step       =  -1  # steps in looping animation
-r = 0
-g = 1
-b = 0
 
 # draw the canvas
 for frame in range(num_frames):
   newPage(canvas, canvas)
   step = step + 1
-  frameDuration(1/16)
+  frameDuration(1/10)
   fill(0.8)
   rect(0, 0, canvas, canvas)
   
@@ -65,19 +62,15 @@ for frame in range(num_frames):
   # animation loop
   for frame in range(num_frames):
     save()
-    r = r + 0.003
-    g = g - 0.003
-    b = b + 0.003    
-    a = gridpoints[step]
-    b = (random.choice(gridpoints))
-    c = (random.choice(gridpoints))
-    fill(None)
+    a = gridpoints[step - random.randint(6, 12)]
+    b = gridpoints[step - random.randint(6, 12)]
+    c = gridpoints[step - random.randint(6, 12)]
+    fill(1)
     strokeWidth(1.5)
-    fill(r, g, b)
     stroke(0.5)
-    oval(c-5, a-5, 10, 10)
-    oval(b-5, c-5, 10, 10)
-    oval(a-5, b-5, 10, 10)
+    oval(a-6, a-6, 12, 12)
+    oval(a-6, b-6, 12, 12)
+    oval(a-6, c-6, 12, 12)
     restore()
-        
+      
 saveImage("dbe_2016_02_27_v1.gif")
