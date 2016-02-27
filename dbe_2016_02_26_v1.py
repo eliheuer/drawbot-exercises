@@ -7,6 +7,10 @@
 # pep-8 maximum-line-length #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 # setting up the canvas size and main variables
+
+import random
+
+gridpoints = [128, 144, 160, 176, 192, 208, 224, 240, 256, 272, 288, 304, 320, 336, 352, 368, 384]
 canvas     = 512  # size of the gif in pixels
 margin     = 128  # distance from edge of canvas 
 num_frames =  32  # number of frames in the animation
@@ -45,24 +49,27 @@ for frame in range(num_frames):
     restore()
     
   # guides
-  stroke(1, 0, 0, 0.4)  
-  strokeWidth(0.5)
-  polygon((0, 128), (512, 128))
-  polygon((0, 128+256), (512, 128+256))
-  polygon((128, 0), (128, 512))
-  polygon((128+256, 0), (128+256, 512))
-  polygon((256, 0), (256, 512))
-  polygon((0, 256), (512, 256))
+  # stroke(1, 0, 0, 0.4)  
+  # strokeWidth(0.5)
+  # polygon((0, 128), (512, 128))
+  # polygon((0, 128+256), (512, 128+256))
+  # polygon((128, 0), (128, 512))
+  # polygon((128+256, 0), (128+256, 512))
+  # polygon((256, 0), (256, 512))
+  # polygon((0, 256), (512, 256))
 
   # animation loop
   for frame in range(num_frames):
     save()
-    step = step + 2
-    fill(1)
-    stroke(0.2)
-    rotate(step)
-    translate(1, 1)
-    oval(256, 256, 8, 8)
+    a = (random.choice(gridpoints))
+    b = (random.choice(gridpoints))
+    c = (random.choice(gridpoints))
+    fill(1, 1, 1)
+    stroke(0.5)
+    polygon(
+    oval(a-4, a-4, 8, 8)
+    oval(a-4, b-4, 8, 8)
+    oval(a-4, c-4, 8, 8)
     restore()
         
 # saveImage("dbe_2016_21_16_001.gif")
