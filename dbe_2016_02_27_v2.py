@@ -1,6 +1,6 @@
 #  Eli Heuer's daily DrawBot exercise!
 #  eliheuer@gmail.com
-#  02/27/16 -- version 1
+#  02/27/16 -- version 2
 #  Made with DrawBot:
 #  http://www.drawbot.com/ 
 
@@ -11,25 +11,28 @@
 import random
 
 gridpoints = range(128, 400, 16) 
+gridpoints_reverse = gridpoints[::-1]
+print gridpoints
+print gridpoints_reverse
+
 canvas     = 512                  # size of the gif in pixels
 margin     = 128                  # distance from edge of canvas 
 num_frames =  16                  # number of frames in the animation
 stepa      =  -1                  # steps in looping animation
 stepb      =  17
-circle_size   =  12
-r = 0
-g = 1
-b = 1
+stepc      =  -9                  # steps in looping animation
+stepd      =  8
+
+circle_size   =  14
 
 # draw the canvas
 for frame in range(num_frames):
   newPage(canvas, canvas)
   stepa = stepa + 1
   stepb = stepb - 1
-  r = r + 0.1
-  g = g - 0.1
-  b = b - 0.1
-  frameDuration(1/10)
+  stepc = stepc + 1
+  stepd = stepd - 1
+  frameDuration(1/4)
   fill(0.8)
   rect(0, 0, canvas, canvas)
   
@@ -59,7 +62,7 @@ for frame in range(num_frames):
     restore()
     
   # guides
-  # stroke(1, 0, 0, 0.4)  
+  # stroke(0.4)  
   # strokeWidth(0.5)
   # polygon((0, 128), (512, 128))
   # polygon((0, 128+256), (512, 128+256))
@@ -73,13 +76,24 @@ for frame in range(num_frames):
     save()
     a = gridpoints[stepa]
     b = gridpoints[stepb]
-    fill(r, g, b)
+    c = gridpoints_reverse[stepc]
+    d = gridpoints_reverse[stepd]
+    fill(1)
     strokeWidth(1.5)
     stroke(0.5)
+    
+    # outer going in 
     oval(a-(circle_size/2), a-(circle_size/2), circle_size, circle_size)
     oval(b-(circle_size/2), b-(circle_size/2), circle_size, circle_size)
     oval(a-(circle_size/2), b-(circle_size/2), circle_size, circle_size)
     oval(b-(circle_size/2), a-(circle_size/2), circle_size, circle_size)
+    
+    #inner going out
+    oval(c-(circle_size/2), c-(circle_size/2), circle_size, circle_size)
+    oval(d-(circle_size/2), d-(circle_size/2), circle_size, circle_size)
+    oval(c-(circle_size/2), d-(circle_size/2), circle_size, circle_size)
+    oval(d-(circle_size/2), c-(circle_size/2), circle_size, circle_size)
+    
     restore()
       
 saveImage("dbe_2016_02_27_v2.gif")
