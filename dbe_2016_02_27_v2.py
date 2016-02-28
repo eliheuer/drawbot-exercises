@@ -8,22 +8,21 @@
 
 # setting up the canvas size and main variables
 
-import random
+canvas      = 512  # size of the gif in pixels
+margin      = 128  # distance from edge of canvas 
+num_frames  =  16  # number of frames in the animation
+stepa       =  -1  # steps in looping animation
+stepb       =  17  # steps in looping animation
+stepc       =  -9  # steps in looping animation
+stepd       =   8  # steps in looping animation
+circle_size =  14  # self explanatory
 
+# grid increments (16px X 16pc)
 gridpoints = range(128, 400, 16) 
 gridpoints_reverse = gridpoints[::-1]
 print gridpoints
 print gridpoints_reverse
 
-canvas     = 512                  # size of the gif in pixels
-margin     = 128                  # distance from edge of canvas 
-num_frames =  16                  # number of frames in the animation
-stepa      =  -1                  # steps in looping animation
-stepb      =  17
-stepc      =  -9                  # steps in looping animation
-stepd      =  8
-
-circle_size   =  14
 
 # draw the canvas
 for frame in range(num_frames):
@@ -32,7 +31,7 @@ for frame in range(num_frames):
   stepb = stepb - 1
   stepc = stepc + 1
   stepd = stepd - 1
-  frameDuration(1/4)
+  frameDuration(1/20)
   fill(0.8)
   rect(0, 0, canvas, canvas)
   
@@ -90,9 +89,9 @@ for frame in range(num_frames):
     
     #inner going out
     oval(c-(circle_size/2), c-(circle_size/2), circle_size, circle_size)
-    oval(d-(circle_size/2), d-(circle_size/2), circle_size, circle_size)
+    oval(d-(circle_size/2), 256-(circle_size/2), circle_size, circle_size)
     oval(c-(circle_size/2), d-(circle_size/2), circle_size, circle_size)
-    oval(d-(circle_size/2), c-(circle_size/2), circle_size, circle_size)
+    oval(d-(circle_size/2), 256-(circle_size/2), circle_size, circle_size)
     
     restore()
       
