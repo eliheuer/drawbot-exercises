@@ -1,36 +1,30 @@
 #  Eli Heuer's daily DrawBot exercise!
 #  eliheuer@gmail.com
-#  02/27/16 -- version 2
+#  02/28/16 -- version 1
 #  Made with DrawBot:
 #  http://www.drawbot.com/ 
 
 # pep-8 maximum-line-length #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
-# setting up the canvas size and main variables
-
+# setting up the main variables
 canvas      = 512  # size of the gif in pixels
-margin      = 128  # distance from edge of canvas 
-num_frames  =  16  # number of frames in the animation
-stepa       =  -1  # steps in looping animation
-stepb       =  17  # steps in looping animation
-stepc       =  -9  # steps in looping animation
-stepd       =   8  # steps in looping animation
+margin      = 128  # grids distance from edge of canvas 
+increment   =  16  # grid increment
+num_frames  =  17  # number of frames in the animation
+step       =  -1   # steps in looping animation
 circle_size =  14  # self explanatory
 
 # grid increments (16px X 16pc)
-gridpoints = range(128, 400, 16) 
-gridpoints_reverse = gridpoints[::-1]
-print gridpoints
-print gridpoints_reverse
+gridarray_reg = range(margin, (canvas - margin) + increment, increment) 
+gridarray_rev = gridarray_reg[::-1]
+print gridarray_reg
+print gridarray_rev
 
 
 # draw the canvas
 for frame in range(num_frames):
   newPage(canvas, canvas)
-  stepa = stepa + 1
-  stepb = stepb - 1
-  stepc = stepc + 1
-  stepd = stepd - 1
+  step = step + 1
   frameDuration(1/20)
   fill(0.8)
   rect(0, 0, canvas, canvas)
@@ -44,19 +38,17 @@ for frame in range(num_frames):
   
   # grid X-axis
   stepx  = -16  # step in sequence on x axis             
-  incx   =  16  # grid increment
   for x in range(17):
     save()
-    stepx = stepx + incx
+    stepx = stepx + increment
     polygon((margin + stepx, margin), (margin+stepx, canvas-margin))
     restore()
     
   # grid Y-axis
   stepy  = -16  # step in sequence on y axis 
-  incy   =  16  # grid increment
   for y in range(17):
     save()
-    stepy = stepy + incy
+    stepy = stepy + increment
     polygon((margin, margin + stepy), (canvas-margin, margin+stepy))
     restore()
     
@@ -72,27 +64,47 @@ for frame in range(num_frames):
 
   # animation loop
   for frame in range(num_frames):
+    print frame
     save()
-    a = gridpoints[stepa]
-    b = gridpoints[stepb]
-    c = gridpoints_reverse[stepc]
-    d = gridpoints_reverse[stepd]
     fill(1)
     strokeWidth(1.5)
-    stroke(0.5)
+    stroke(0.4)
     
-    # outer going in 
-    oval(a-(circle_size/2), a-(circle_size/2), circle_size, circle_size)
-    oval(b-(circle_size/2), b-(circle_size/2), circle_size, circle_size)
-    oval(a-(circle_size/2), b-(circle_size/2), circle_size, circle_size)
-    oval(b-(circle_size/2), a-(circle_size/2), circle_size, circle_size)
+    # moving circles
     
-    #inner going out
-    oval(c-(circle_size/2), c-(circle_size/2), circle_size, circle_size)
-    oval(d-(circle_size/2), 256-(circle_size/2), circle_size, circle_size)
-    oval(c-(circle_size/2), d-(circle_size/2), circle_size, circle_size)
-    oval(d-(circle_size/2), 256-(circle_size/2), circle_size, circle_size)
+    oval((gridarray_rev[step])-(circle_size/2), (gridarray_reg[2])-(circle_size/2), 
+    circle_size, circle_size)
     
+    oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[4])-(circle_size/2), 
+    circle_size, circle_size)
+    
+    oval((gridarray_rev[step])-(circle_size/2), (gridarray_reg[6])-(circle_size/2), 
+    circle_size, circle_size)
+    
+    oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[8])-(circle_size/2), 
+    circle_size, circle_size)
+    
+    oval((gridarray_rev[step])-(circle_size/2), (gridarray_reg[10])-(circle_size/2), 
+    circle_size, circle_size)
+    
+    oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[12])-(circle_size/2), 
+    circle_size, circle_size)
+    
+    oval((gridarray_rev[step])-(circle_size/2), (gridarray_reg[14])-(circle_size/2), 
+    circle_size, circle_size)
+    
+    
+    # split
+    
+    fill(1, 0.4, 0.4)
+    
+    oval((gridarray_rev[8])-(circle_size/2), (gridarray_rev[step])-(circle_size/2), 
+    circle_size, circle_size)
+    
+    oval((gridarray_reg[8])-(circle_size/2), (gridarray_reg[step])-(circle_size/2), 
+    circle_size, circle_size)
+    
+
     restore()
       
 saveImage("dbe_2016_02_27_v2.gif")
