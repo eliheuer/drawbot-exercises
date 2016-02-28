@@ -17,12 +17,18 @@ num_frames =  16                  # number of frames in the animation
 stepa      =  -1                  # steps in looping animation
 stepb      =  17
 circle_size   =  12
+r = 0
+g = 1
+b = 1
 
 # draw the canvas
 for frame in range(num_frames):
   newPage(canvas, canvas)
   stepa = stepa + 1
   stepb = stepb - 1
+  r = r + 0.1
+  g = g - 0.1
+  b = b - 0.1
   frameDuration(1/10)
   fill(0.8)
   rect(0, 0, canvas, canvas)
@@ -67,7 +73,7 @@ for frame in range(num_frames):
     save()
     a = gridpoints[stepa]
     b = gridpoints[stepb]
-    fill(1)
+    fill(r, g, b)
     strokeWidth(1.5)
     stroke(0.5)
     oval(a-(circle_size/2), a-(circle_size/2), circle_size, circle_size)
