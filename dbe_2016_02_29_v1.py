@@ -7,13 +7,13 @@
 # pep-8 maximum-line-length #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 # setting up the main variables
-canvas      = 512  # size of the gif in pixels
-margin      = 128  # grids distance from edge of canvas 
-increment   =  16  # grid increment
-num_frames  =  64  # number of frames in the animation
-step_h      =  -1   # steps in looping animation
-step_v      =   0
-circle_size =  14  # self explanatory
+canvas      =  512  # size of the gif in pixels
+margin      =  128  # grids distance from edge of canvas 
+increment   =   16  # grid increment
+num_frames  = 17*2      # number of frames in the animation
+step_h      =   -1  # steps in looping animation
+step_v      =    0
+circle_size =   14  # self explanatory
 
 # grid increments (16px X 16pc)
 gridarray_reg = range(margin, (canvas - margin) + increment, increment) 
@@ -21,11 +21,10 @@ gridarray_rev = gridarray_reg[::-1]
 print gridarray_reg
 print gridarray_rev
 
-
 # draw the canvas
 for frame in range(num_frames):
   newPage(canvas, canvas)
-  step_h = step_h + 4
+  step_h = step_h + 1
   frameDuration(1/20)
   fill(0.8)
   rect(0, 0, canvas, canvas)
@@ -53,16 +52,6 @@ for frame in range(num_frames):
     polygon((margin, margin + stepy), (canvas-margin, margin+stepy))
     restore()
     
-  # guides
-  stroke(0.4)  
-  strokeWidth(0.5)
-  polygon((0, 128), (512, 128))
-  polygon((0, 128+256), (512, 128+256))
-  polygon((128, 0), (128, 512))
-  polygon((128+256, 0), (128+256, 512))
-  polygon((256, 0), (256, 512))
-  polygon((0, 256), (512, 256))
-
   # animation loop
   for frame in range(num_frames):
     print frame
@@ -73,54 +62,11 @@ for frame in range(num_frames):
     
     # moving circles
     if step_h <= increment:
-        oval((gridarray_reg[step_h])-(circle_size/2), (gridarray_reg[step_v])-(circle_size/2), 
-        circle_size, circle_size)
+        for move in range(17):
+            step_h = step_h + 1
+            oval((gridarray_reg[step_h])-(circle_size/2), (gridarray_reg[step_v+move])-(circle_size/2), 
+            circle_size, circle_size)      
     else:
-        step_h = 0
-        step_v = step_v + 1
-        
-    
+        step_h = 0 
     restore()
-    
-    
-    
-    
-    
-    
-    
-    #oval = 
-    #position = starting positon
-    #while position <= 18
-    #for oval in ovals:
-    #position = position =+1
-    #else reverse
-    # oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[0])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[2])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[4])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[6])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[8])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[10])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[12])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # oval((gridarray_reg[step])-(circle_size/2), (gridarray_reg[14])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # oval((gridarray_rev[step])-(circle_size/2), (gridarray_reg[16])-(circle_size/2), 
-    # circle_size, circle_size)
-    
-    # restore()
-      
 saveImage("dbe_2016_02_29_v1.gif")
