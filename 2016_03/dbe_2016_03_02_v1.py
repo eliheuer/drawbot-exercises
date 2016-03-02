@@ -2,15 +2,15 @@ import math
 
 print "start"
 
-def dot(step):
-    x = (math.cos(step*8))
-    x = int(round(x*4))
-    print x 
-    
-step = 0
+def dot_sin(beat):
+    dot_sin = (math.sin(beat/8))
+    dot_sin = int(round(dot_sin*4))
+    print dot_sin
+
+beat = 0
 
 for i in range(32):
-    step = step + 1
-    dot(step)
+    beat = beat + 1
+    dot_sin(beat)
 
 print "end"
