@@ -10,15 +10,29 @@ import math
 
 def sin_dot(frame):
     translate(0, 256)
-    y = math.sin(math.radians(frame*8))
+    y = math.sin(math.radians(frame*4))
     y = y * 128
     y = round(y)
     y = int(y)
-    print (y)
     fill(1, 0, 0)
     stroke (None)
-    translate(256, 0)
-    oval(y-6, y-6, circle_size, circle_size)
+    translate(256-y, 0)
+    a_point = (y*pi/8)-6
+    b_point = (y*pi/4)-6
+    oval(a_point, b_point, circle_size, circle_size)
+    
+def cos_dot(frame):
+    translate(0, 0)
+    y = math.cos(math.radians(frame*4))
+    y = y * 32
+    y = round(y)
+    y = int(y)
+    fill(1, 0, 0)
+    stroke (None)
+    translate(y, 0)
+    a_point = (y*pi/16)-6
+    b_point = (y*pi/4)-6
+    oval(a_point, b_point, circle_size, circle_size)
     
 # set up a new frame in the animation
 def new_page():
@@ -57,20 +71,18 @@ margin = 128  # grids distance from edge of canvas
 increment = 16  # grid increment
 num_frames = 90  # number of frames in the animation
 circle_size = 12  # self explanatory
-
+step =0
 
 
 # draw each frame as a new page
 print "start"
 for frame in range(num_frames):
-    grid_array_reg = range(margin, (canvas - margin) + increment, increment) 
-    grid_array_rev = grid_array_reg[::-1]
+    #grid_array_reg = range(margin, (canvas - margin) + increment, increment) 
+    #grid_array_rev = grid_array_reg[::-1]
     new_page() 
-    grid(increment)  
-    for step in range(16):
-        save()
-        sin_dot(frame)
-        restore()
+    grid(increment) 
+    sin_dot(frame) 
+    cos_dot(frame)
     
 print "end" 
 saveImage("dbe_2016_03_03_v1.gif")
