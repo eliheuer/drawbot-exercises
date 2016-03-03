@@ -1,8 +1,11 @@
-#  Eli Heuer's daily DrawBot exercise!
-#  Contact:eliheuer@gmail.com
-#  Drawn on: 03/03/16 -- version 1
-#  Made with DrawBot: http://www.drawbot.com/ 
-
+#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#  
+#                                                                             #
+#  Eli Heuer's daily DrawBot exercise!                                        #
+#                                                                             #
+#  WWW: https://www.tumblr.com/blog/drawbot-exercises                         #
+#  Drawn on: 03/03/16 -- version 1                                            #
+#  Made with DrawBot: http://www.drawbot.com/                                 #
+#                                                                             #
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 import math
@@ -66,7 +69,7 @@ def grid(increment):
         polygon((margin, margin + stepy), 
         (canvas-margin, margin+stepy))
         
-# setting global variables
+# setting variables
 canvas = 512  # size of the gif in pixels
 margin = 128  # grids distance from edge of canvas 
 increment = 16  # grid increment
