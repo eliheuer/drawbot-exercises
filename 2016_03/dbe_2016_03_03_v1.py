@@ -8,6 +8,25 @@
 
 import math
 
+def sin_dot(frame):
+    translate(0, 256)
+    y = math.sin(math.radians(frame*8))
+    y = y * 128
+    y = round(y)
+    y = int(y)
+    print (y)
+    fill(1, 0, 0)
+    stroke (None)
+    translate(256, 0)
+    oval(y-6, y-6, circle_size, circle_size)
+    
+# set up a new frame in the animation
+def new_page():
+    newPage(canvas, canvas)
+    frameDuration(1/20)
+    fill(0.8)
+    rect(0, 0, canvas, canvas) 
+    
 # draw a grid 
 def grid(increment):    
     fill(None)
@@ -39,29 +58,19 @@ increment = 16  # grid increment
 num_frames = 90  # number of frames in the animation
 circle_size = 12  # self explanatory
 
-# grid increments (16px X 16pc)
-gridarray_reg = range(margin, (canvas - margin) + increment, increment) 
-gridarray_rev = gridarray_reg[::-1]
+
 
 # draw each frame as a new page
 print "start"
 for frame in range(num_frames):
-    newPage(canvas, canvas)
-    frameDuration(1/20)
-    fill(0.8)
-    rect(0, 0, canvas, canvas)  
-    grid(increment)    
-    translate(0, 256)
-    
-    y = math.sin(math.radians(frame*8))
-    y = y * 128
-    y = round(y)
-    y = int(y)
-    print (y)
-    fill(1, 0, 0)
-    stroke (None)
-    translate(256, 0)
-    oval(-6, y-6, circle_size, circle_size)
+    grid_array_reg = range(margin, (canvas - margin) + increment, increment) 
+    grid_array_rev = grid_array_reg[::-1]
+    new_page() 
+    grid(increment)  
+    for step in range(16):
+        save()
+        sin_dot(frame)
+        restore()
     
 print "end" 
-saveImage("dbe_2016_03_02_v2.gif")
+saveImage("dbe_2016_03_03_v1.gif")
