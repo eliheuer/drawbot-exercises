@@ -1,13 +1,13 @@
 #  Eli Heuer's daily DrawBot exercise!
-#  eliheuer@gmail.com
-#  03/03/16 -- version 1
-#  Made with DrawBot:
-#  http://www.drawbot.com/ 
+#  Contact:eliheuer@gmail.com
+#  Drawn on: 03/03/16 -- version 1
+#  Made with DrawBot: http://www.drawbot.com/ 
 
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 import math
 
+# dot on a sin loop
 def sin_dot(frame):
     translate(0, 256)
     y = math.sin(math.radians(frame*4))
@@ -21,6 +21,7 @@ def sin_dot(frame):
     b_point = (y*pi/4)-6
     oval(a_point, b_point, circle_size, circle_size)
     
+# dot on a cos loop
 def cos_dot(frame):
     translate(0, 0)
     y = math.cos(math.radians(frame*4))
