@@ -8,9 +8,8 @@
 
 import math
 
-# grid creates a 
+# draw a grid 
 def grid(increment):    
-    # style the grid
     fill(None)
     stroke(0.5)
     strokeWidth(1)
@@ -18,7 +17,7 @@ def grid(increment):
     lineJoin("round")   
    
     # draw the grid X-axis
-    stepx  = -increment  # step in sequence on x axis             
+    stepx  = -increment               
     for x in range(17):
         save()
         stepx = stepx + increment
@@ -27,7 +26,7 @@ def grid(increment):
         restore()
     
     # draw the grid Y-axis
-    stepy  = -increment  # step in sequence on y axis 
+    stepy  = -increment  
     for y in range(17):
         save()
         stepy = stepy + increment
@@ -39,9 +38,8 @@ def grid(increment):
 canvas = 512  # size of the gif in pixels
 margin = 128  # grids distance from edge of canvas 
 increment = 16  # grid increment
-num_frames = 180  # number of frames in the animation
+num_frames = 90  # number of frames in the animation
 circle_size = 12  # self explanatory
-
 
 # grid increments (16px X 16pc)
 gridarray_reg = range(margin, (canvas - margin) + increment, increment) 
@@ -57,7 +55,7 @@ for frame in range(num_frames):
     grid(increment)    
     translate(0, 256)
     
-    y = math.sin(math.radians(frame*2))
+    y = math.sin(math.radians(frame*4))
     y = y * 128
     y = round(y)
     y = int(y)
