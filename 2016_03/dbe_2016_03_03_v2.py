@@ -26,21 +26,17 @@ def sin_dot(frame, power):
     
 # dot on a cos loop
 def cos_dot(frame, power):
-    translate(0, -128)
-    y = math.cos(math.radians(frame))
-    y = y * power
+    translate(0, 0)
+    y = math.cos(math.radians(frame*8))
+    y = y * 128
     y = round(y)
     y = int(y)
     fill(0, 0.3, 1)
     stroke (None)
-    translate(256-y, 0)
-    a_point = (power*pi/8)-6
-    b_point = (power*pi/8)-6
+    a_point = (y*pi/8)-6
+    b_point = (y*pi/4)-6
     oval(a_point, b_point, circle_size, circle_size)
-    for i in range(1, 17):
-        a_point = (power*pi/8)-6
-        b_point = (power*pi/8)-6
-        oval(a_point, b_point, circle_size, circle_size)
+
     
 # set up a new frame in the animation
 def new_page():
