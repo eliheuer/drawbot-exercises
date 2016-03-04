@@ -11,7 +11,7 @@
 import math
 
 # dot on a sin loop
-def sin_dot(frame):
+def sin_dot(frame, power):
     translate(0, 256)
     y = math.sin(math.radians(frame*4))
     y = y * 128
@@ -25,18 +25,22 @@ def sin_dot(frame):
     oval(a_point, b_point, circle_size, circle_size)
     
 # dot on a cos loop
-def cos_dot(frame):
-    translate(0, 0)
-    y = math.cos(math.radians(frame*4))
-    y = y * 32
+def cos_dot(frame, power):
+    translate(0, -128)
+    y = math.cos(math.radians(frame))
+    y = y * power
     y = round(y)
     y = int(y)
-    fill(1, 0, 0)
+    fill(0, 0.3, 1)
     stroke (None)
-    translate(y, 0)
-    a_point = (y*pi/16)-6
-    b_point = (y*pi/4)-6
+    translate(256-y, 0)
+    a_point = (power*pi/8)-6
+    b_point = (power*pi/8)-6
     oval(a_point, b_point, circle_size, circle_size)
+    for i in range(1, 17):
+        a_point = (power*pi/8)-6
+        b_point = (power*pi/8)-6
+        oval(a_point, b_point, circle_size, circle_size)
     
 # set up a new frame in the animation
 def new_page():
@@ -76,17 +80,15 @@ increment = 16  # grid increment
 num_frames = 90  # number of frames in the animation
 circle_size = 12  # self explanatory
 step =0
+power = 10
 
 
 # draw each frame as a new page
-print "start"
 for frame in range(num_frames):
-    #grid_array_reg = range(margin, (canvas - margin) + increment, increment) 
-    #grid_array_rev = grid_array_reg[::-1]
     new_page() 
+    power = power + 10
     grid(increment) 
-    sin_dot(frame) 
-    cos_dot(frame)
+    sin_dot(frame, power) 
+    cos_dot(frame, power)
     
-print "end" 
 saveImage("dbe_2016_03_03_v2.gif")
