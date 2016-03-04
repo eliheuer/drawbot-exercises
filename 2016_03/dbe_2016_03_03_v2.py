@@ -27,14 +27,14 @@ def sin_dot(frame, power):
 # dot on a cos loop
 def cos_dot(frame, power):
     translate(0, 0)
-    y = math.cos(math.radians(frame*8))
+    y = math.cos(math.radians(frame*2))
     y = y * 128
     y = round(y)
     y = int(y)
     fill(0, 0.3, 1)
     stroke (None)
-    a_point = (y*pi/8)-6
-    b_point = (y*pi/4)-6
+    a_point = (y*pi/4)-6
+    b_point = (y*pi/2)-6
     oval(a_point, b_point, circle_size, circle_size)
 
     
@@ -73,9 +73,9 @@ def grid(increment):
 canvas = 512  # size of the gif in pixels
 margin = 128  # grids distance from edge of canvas 
 increment = 16  # grid increment
-num_frames = 90  # number of frames in the animation
+num_frames = 180  # number of frames in the animation
 circle_size = 12  # self explanatory
-step =0
+step = 0
 power = 10
 
 
