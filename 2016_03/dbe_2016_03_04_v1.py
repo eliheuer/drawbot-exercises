@@ -1,6 +1,6 @@
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#  
 #                                                                             #
-#  Eli Heuer's daily DrawBot exercise!                                        #
+#  Eli Heuer's daily DrawBot exercise                                         #
 #                                                                             #
 #  WWW: https://www.tumblr.com/blog/drawbot-exercises                         #
 #  Mail: eliheuer@gmail.com                                                   #
@@ -17,6 +17,12 @@ def new_page():
     frameDuration(1/20)
     fill(0.8)
     rect(0, 0, canvas, canvas) 
+    
+# draws the red dot from to position variables    
+def red_dot(x_pos, y_pos):
+    fill(1, 0, 0)
+    stroke(None)
+    oval(int(x_pos) + center, int(y_pos) + center, circle_size, circle_size)
     
 # draws a grid from a given increment 
 def grid(increment):    
@@ -40,24 +46,22 @@ def grid(increment):
         
 # setting variables
 canvas = 512  # size of the gif in pixels
-margin = 128  # grids distance from edge of canvas 
+margin = 128  # grid distance from edge of canvas 
 increment = 16  # grid increment
 num_frames = 180  # number of frames in the animation
 circle_size = 12  # self explanatory
-center = int(canvas / 2) # exact center of the image
-amp = 100 # short for amplitude
+center = int(canvas / 2) - 6 # exact center of the image
+amp = 128 # short for amplitude
 step = 0 # step in the animation
-
 
 # draw each frame as a new page
 for frame in range(num_frames):
     new_page() 
     grid(increment) 
-    step = step + 1
     x_pos = math.cos(step) * amp
     y_pos = -1 * math.sin(step) * amp
-    oval(int(x_pos) + center, int(y_pos) + center, circle_size, circle_size)
-    step += 0.02
-    step %= 2 * math.pi
+    red_dot(x_pos, y_pos)
+    step += 0.175
+    step %= 8 * math.pi
     
-saveImage("dbe_2016_03_03_v2.gif")
+saveImage("dbe_2016_03_04_v1.gif")
