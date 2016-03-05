@@ -13,16 +13,17 @@ import math # for cos and sin functions
     
 # draws a new frame in the animation
 def new_page(): 
-    newPage(canvas, canvas)
-    frameDuration(1/20)
-    fill(0.8)
-    rect(0, 0, canvas, canvas) 
+    newPage(canvas, canvas) # new page from canvas variable
+    frameDuration(1/24) # set the dividend to desired FPS (frames per second) 
+    fill(0.8) #light grey
+    rect(0, 0, canvas, canvas) # background
     
 # draws the red dot from to position variables    
-def red_dot(x_pos, y_pos):
-    fill(1, 0, 0)
-    stroke(None)
-    oval(int(x_pos) + center, int(y_pos) + center, circle_size, circle_size)
+def dot_one(dot_one_x, dot_one_y):
+    fill(1, 0, 0) # red
+    stroke(None) # removes default outline
+    oval(int(dot_one_x) + center, int(dot_one_y) + center, 
+    circle_size, circle_size)
     
 # draws a grid from a given increment 
 def grid(increment):    
@@ -48,20 +49,21 @@ def grid(increment):
 canvas = 512  # size of the gif in pixels
 margin = 128  # grid distance from edge of canvas 
 increment = 16  # grid increment
-num_frames = 180  # number of frames in the animation
+num_frames = 90  # number of frames in the animation
 circle_size = 12  # self explanatory
 center = int(canvas / 2) - 6 # exact center of the image
 amp = 128 # short for amplitude
 step = 0 # step in the animation
+color_cycle = ([1, 0, 0],[0, 0, 0],[0, 0, 0])
 
 # draw each frame as a new page
 for frame in range(num_frames):
     new_page() 
     grid(increment) 
-    x_pos = math.cos(step) * amp
-    y_pos = -1 * math.sin(step) * amp
-    red_dot(x_pos, y_pos)
-    step += 0.175
+    dot_one_x = math.cos(step) * amp
+    dot_one_y = -1 * math.sin(step) * amp
+    dot_one(dot_one_x, dot_one_y)
+    step += 0.62831 # pi * 2 
     step %= 8 * math.pi
     
-saveImage("dbe_2016_03_04_v1.gif")
+saveImage("dbe_2016_03_05_v1.gif")
