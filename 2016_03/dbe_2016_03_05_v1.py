@@ -10,18 +10,30 @@
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 import math # for cos and sin functions
-    
+# main variables
+canvas = 512  # size of the gif in pixels
+num_frames = 64  # number of frames in the animation
+center = int(canvas / 2) # exact center of the image
+
+# gird variables
+origin = (128, 128)
+width = 256
+height = 256
+num_horizontal_divisions = 1
+num_vertical_divisions = 1
+
 # draws a new frame in the animation
 def new_page(): 
     newPage(canvas, canvas) # new page from canvas variable
-    frameDuration(1/24) # set the dividend to desired FPS (frames per second) 
-    fill(0.8) #light grey
+    frameDuration(1/20) # set the dividend to desired FPS (frames per second) 
+    fill(0.1) #dark grey
     rect(0, 0, canvas, canvas) # background
-        
+ 
+# draws a grid from given arguments    
 def grid(origin, width, height, 
          num_horizontal_divisions, num_vertical_divisions):
     fill(None)
-    stroke(0.5) # color
+    stroke(0.9) # color
     strokeWidth(1)
     
     translate(*origin)
@@ -36,52 +48,33 @@ def grid(origin, width, height,
     for y in range(num_vertical_divisions + 1):
         line((0, step_y), (width, step_y))
         step_y += increment_y
-                     
-        
-
-# # draws a grid from a given increment 
-# def grid(increment, canvas, margin):    
-#     fill(None)
-#     stroke(0.5)
-#     strokeWidth(1) 
-   
-#     # draw the grid X-axis
-#     step_x  = -increment               
-#     for x in range(17):
-#         step_x = step_x + increment
-#         line((margin + step_x, margin), 
-#             (margin+step_x, canvas-margin))
-    
-#     # draw the grid Y-axis
-#     step_y  = -increment  
-#     for y in range(17):
-#         step_y = step_y + increment
-#         line((margin, margin + step_y), 
-#             (canvas-margin, margin+step_y))
-        
-# setting variables
-canvas = 512  # size of the gif in pixels
-margin = 128  # grid distance from edge of canvas 
-increment = 16  # grid increment
-num_frames = 32  # number of frames in the animation
-circle_size = 12  # self explanatory
-center = int(canvas / 2) - 6 # exact center of the image
-amp = 128 # short for amplitude
-step = 0 # step in the animation
-origin = (32, 64)
-width = 256
-height = 256
-num_horizontal_divisions = 16
-num_vertical_divisions = 32
 
 # draw each frame as a new page
-for frame in range(num_frames):
+for frame in range(int(num_frames/2)):
     new_page()
     grid(origin, width, height, 
-         num_horizontal_divisions, num_vertical_divisions)
+        num_horizontal_divisions, num_vertical_divisions)
+    
+    fontSize(32)
+    font("Lydian")
+    tracking(0)
+    fill(0.9)
+    stroke(None)
+    text("Hello World", (-2, -frame))
+    
+for frame in range(int(num_frames/2)):
+    new_page()
+    grid(origin, width, height, 
+        num_horizontal_divisions, num_vertical_divisions)
     num_horizontal_divisions += 1
-    width +=8
+    num_vertical_divisions += 1
     
-    
-    
+    # type -- future idea: print out variable data?
+    fontSize(32)
+    font("Lydian")
+    tracking(0)
+    fill(0.9)
+    stroke(None)
+    text("Hello World", (-2, -32))
+
 saveImage("dbe_2016_03_05_v1.gif")
