@@ -52,7 +52,7 @@ def yellow_dot(x_pos, y_pos):
 
 # draws the red dot from to position variables    
 def blue_dot(x_pos, y_pos):
-    fill(0, 0, 1)
+    fill(0, 0.2, 1)
     stroke(None)
     oval(int(x_pos) + center, int(y_pos) + center, circle_size, circle_size)
  
@@ -76,7 +76,7 @@ def grid(origin, width, height, num_x_divisions, num_y_divisions):
         step_y += increment_y
 
 # draw each frame as a new page
-for frame in range(int(num_frames)):
+for frame in range(int(num_frames/2)):
     new_page()
     
     # draw the grid
@@ -92,6 +92,7 @@ for frame in range(int(num_frames)):
     
     # animated  dot
     for move in range(frame):
+        move += 1
         x_pos = math.cos(step) * amp
         y_pos = -1 * math.sin(step) * amp
     
@@ -99,7 +100,7 @@ for frame in range(int(num_frames)):
         yellow_dot(0-8, 0-8)
         blue_dot((x_pos*2)-8, (y_pos*2)-8)
     
-        step += 0.1 
+        step += 0.043
         step %= 8 * math.pi
-    
+        
 saveImage("dbe_2016_03_07_v1.gif")
