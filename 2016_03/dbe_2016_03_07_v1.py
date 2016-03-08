@@ -14,7 +14,7 @@ import math # for cos and sin functions
 # static variables
 canvas = 512  # size of the gif in pixels
 num_frames = 63  # number of frames in the animation
-center = 256 # exact center of the image
+center = 128 # exact center of the image
 
 # gird variables
 origin = (128, 128)
@@ -24,7 +24,7 @@ num_x_divisions = 8
 num_y_divisions = 8
 
 # red dot variables
-circle_size = 12  # self explanatory
+circle_size = 16  # self explanatory
 amp = 64 # short for amplitude
 step = 0 # step in the animation
 x_pos = 0 # x-axis position
@@ -91,14 +91,15 @@ for frame in range(int(num_frames)):
     text("Hello World", (-2, -32))
     
     # animated  dot
-    x_pos = math.cos(step) * amp
-    y_pos = -1 * math.sin(step) * amp
+    for move in range(frame):
+        x_pos = math.cos(step) * amp
+        y_pos = -1 * math.sin(step) * amp
     
-    red_dot((x_pos/2)-6, (y_pos/2)-6)
-    yellow_dot(0-6, 0-6)
-    blue_dot((x_pos)-6, (y_pos)-6)
+        red_dot((x_pos)-8, (y_pos)-8)
+        yellow_dot(0-8, 0-8)
+        blue_dot((x_pos*2)-8, (y_pos*2)-8)
     
-    step += 0.1 
-    step %= 8 * math.pi
+        step += 0.1 
+        step %= 8 * math.pi
     
 saveImage("dbe_2016_03_07_v1.gif")
