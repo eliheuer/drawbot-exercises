@@ -13,7 +13,7 @@ import math # for cos and sin functions
 
 # static variables
 canvas = 512  # size of the gif in pixels
-num_frames = 63  # number of frames in the animation
+num_frames = 122  # number of frames in the animation
 center = 128 # exact center of the image
 
 # gird variables
@@ -29,6 +29,7 @@ amp = 64 # short for amplitude
 step = 0 # step in the animation
 x_pos = 0 # x-axis position
 y_pos = 0 # y-axis position
+spacing = 0
 
 
 # draws a new frame in the animation
@@ -83,24 +84,25 @@ for frame in range(int(num_frames/2)):
     grid(origin, width, height, num_x_divisions, num_y_divisions)
     
     # type -- future idea: print out variable data?
+    spacing += 0.28
     fontSize(32)
     font("Helvetica Neue Bold")
-    tracking(2)
+    tracking(-1.2)
     fill(0.9)
     stroke(None)
-    text("Hello World", (-2, -32))
+    text("Hello World", (-2, -160+(frame*9)))
     
     # animated  dot
-    for move in range(frame):
-        move += 1
-        x_pos = math.cos(step) * amp
-        y_pos = -1 * math.sin(step) * amp
+    x_pos = math.cos(step) * amp
+    y_pos = -1 * math.sin(step) * amp 
+
+    red_dot((x_pos)-8, (y_pos)-8)
+    yellow_dot(0-8, 0-8)
+    blue_dot((x_pos*2)-8, (y_pos*2)-8)
+
+    step += 0.2
+    step %= 8 * math.pi
     
-        red_dot((x_pos)-8, (y_pos)-8)
-        yellow_dot(0-8, 0-8)
-        blue_dot((x_pos*2)-8, (y_pos*2)-8)
+    yellow_dot(0-8, 0-8)
     
-        step += 0.043
-        step %= 8 * math.pi
-        
 saveImage("dbe_2016_03_07_v1.gif")
