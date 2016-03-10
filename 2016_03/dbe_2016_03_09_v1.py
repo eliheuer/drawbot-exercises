@@ -10,7 +10,6 @@
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 import math # for cos and sin functions
-import random
 
 # static variables
 canvas = 512  # size of the gif in pixels
@@ -30,34 +29,17 @@ wedge_color_r = 1
 wedge_color_g = 1
 wedge_color_b = 0
 
-
 # draws a new frame in the animation
 def new_page(): 
     newPage(canvas, canvas) # new page from canvas variable
-    frameDuration(1/1) # set the dividend to desired FPS (frames per second) 
-    fill(0.0, 0.0, 0.1) #dark grey
+    frameDuration(1/4) # set the dividend to desired FPS (frames per second) 
+    fill(0.7, 0.7, 0.7) #dark grey
     rect(0, 0, canvas, canvas) # background
-    
-def quarter_wedge(x_pos, y_pos, wedge_color_r, wedge_color_g, wedge_color_b):
-    fill(wedge_color_r, wedge_color_g, wedge_color_b)
-    stroke(None) # color
-    # create a bezier path
-    path = BezierPath()
-
-    # move to a point
-    path.moveTo((x_pos, y_pos))
-    # line to a point
-    path.lineTo((x_pos+0, y_pos+64))
-    path.lineTo((x_pos+32, y_pos+32))
-    # close the path
-    path.closePath()
-    drawPath(path)
 
 # draws a grid from given arguments    
-
 def grid(origin, width, height, num_x_divisions, num_y_divisions):
     fill(None)
-    stroke(1, 0, 0) # color
+    stroke(0.1, 0.1, 0.1) # color
     strokeWidth(1)
     
     translate(*origin)
@@ -75,16 +57,85 @@ def grid(origin, width, height, num_x_divisions, num_y_divisions):
 
 # draw each frame as a new page
 for frame in range(num_frames):
-    new_page()    
+    new_page()  
+      
     # draw the grid
     grid(origin, width, height, num_x_divisions, num_y_divisions)
-    # wedge
-    
-    # one
-    quarter_wedge(x_pos, y_pos, wedge_color_r, wedge_color_g, wedge_color_b)
     
 
+    translate(0, 256)
+    stroke(0.1, 0.1, 0.1)
+    
+    if frame >= 1:
+        fill(0.9, 0.2, 0.2)
+        rotate(-90)
+        translate(64, 64)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+        
+    if frame >= 2:
+        fill(0.9, 0.5, 0.2)    
+        rotate(180)
+        translate(-32, -96)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+    
+    if frame >= 3:
+        fill(0.9, 0.9, 0.2)       
+        rotate(180)
+        translate(-32, -32)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
 
+    if frame >= 4:
+        fill(0.5, 0.9, 0.2)    
+        rotate(-90)
+        translate(-64, 0)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
 
-            
+    if frame >= 5:
+        fill(0.2, 0.9, 0.2)
+        rotate(180)
+        translate(-32, -96)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+
+    if frame >= 6:
+        fill(0.2, 0.9, 0.5)
+        rotate(180)
+        translate(-32, -32)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+
+    if frame >= 7:
+        fill(0.2, 0.9, 0.9)
+        rotate(-90)
+        translate(-64, 0)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+
+    if frame >= 8:
+        fill(0.2, 0.5, 0.9)
+        rotate(180)
+        translate(-32, -96)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+
+    if frame >= 9:
+        fill(0.2, 0.2, 0.9)
+        rotate(180)
+        translate(-32, -32)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+
+    if frame >= 10:
+        fill(0.5, 0.2, 0.9)
+        rotate(-90)
+        translate(-64, 0)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+
+    if frame >= 11:
+        fill(0.9, 0.2, 0.9)
+        rotate(180)
+        translate(-32, -96)
+        polygon((0, 0), (32, 32), (0, 64), close=True)
+
+    if frame >= 12:
+        fill(0.9, 0.2, 0.5)
+        rotate(180)
+        translate(-32, -32)
+        polygon((0, 0), (32, 32), (0, 64), close=True)     
+           
 saveImage("dbe_2016_03_08_v1.gif")
