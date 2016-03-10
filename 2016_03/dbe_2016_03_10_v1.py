@@ -11,35 +11,39 @@
 
 import math # for cos and sin functions
 
-# static variables
+# setting variables
 canvas = 512  # size of the gif in pixels
-num_frames = 16  # number of frames in the animation
-center = 128 # exact center of the image
+num_frames = 32  # number of frames in the animation
+bar_size = 12  
+center = int(canvas / 2) - 6 # exact center of the image
+spacing = 0
+step = 0
+amp = 0
+red_bar_x_pos = -256 + 6
+red_bar_y_pos = -256 + 6
+bar_range_up = range(0, 264, 8)
+bar_range_down = range(248, -8, -8)
+bar_range = bar_range_up + bar_range_down 
+print bar_range
 
 # gird variables
 origin = (128, 128)
 width = 256
 height = 256
-num_x_divisions = 16
-num_y_divisions = 16
-
-x_pos = 128+64
-y_pos = 128-32
-wedge_color_r = 1
-wedge_color_g = 1
-wedge_color_b = 0
+num_x_divisions = 8
+num_y_divisions = 8
 
 # draws a new frame in the animation
 def new_page(): 
     newPage(canvas, canvas) # new page from canvas variable
-    frameDuration(1/4) # set the dividend to desired FPS (frames per second) 
+    frameDuration(1/24) # set the dividend to desired FPS (frames per second) 
     fill(0.7, 0.7, 0.7) #dark grey
     rect(0, 0, canvas, canvas) # background
 
 # draws a grid from given arguments    
 def grid(origin, width, height, num_x_divisions, num_y_divisions):
     fill(None)
-    stroke(0.1, 0.1, 0.1) # color
+    stroke(0.3) # color
     strokeWidth(1)
     
     translate(*origin)
@@ -54,88 +58,39 @@ def grid(origin, width, height, num_x_divisions, num_y_divisions):
     for y in range(num_y_divisions + 1):
         line((0, step_y), (width, step_y))
         step_y += increment_y
-
+    
+# draws the red dot from to position variables    
+def red_bar(red_bar_x_pos, red_bar_y_pos, red_bar_x_size, red_bar_y_size):
+    fill(1, 0, 0)
+    stroke(None)
+    rect(int(red_bar_x_pos) + center, int(red_bar_y_pos) + center, 32, red_bar_y_size)
+    
 # draw each frame as a new page
 for frame in range(num_frames):
-    new_page()  
-      
+    new_page() 
+    bar_size = width / num_x_divisions
+    
     # draw the grid
     grid(origin, width, height, num_x_divisions, num_y_divisions)
     
-
-    translate(0, 256)
-    stroke(0.1, 0.1, 0.1)
+    # type -- future idea: print out variable data?
+    spacing += 0.28
+    fontSize(32)
+    font("Helvetica Neue Bold")
+    tracking(-1.2)
+    fill(0.3)
+    stroke(None)
+    text("Hello World", (-2, -32))
     
-    if frame >= 1:
-        fill(0.9, 0.2, 0.2)
-        rotate(-90)
-        translate(64, 64)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-        
-    if frame >= 2:
-        fill(0.9, 0.5, 0.2)    
-        rotate(180)
-        translate(-32, -96)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
+    red_bar_x_size = math.cos(step) * amp
+    red_bar_x_size = red_bar_x_size + 128
+    red_bar_y_size = math.sin(step) * amp
+    print "red_bar_x_size: ", red_bar_x_pos
+    print "red_bar_y_size: ", red_bar_y_pos
+    print " "
+    red_bar(red_bar_x_pos, red_bar_y_pos, red_bar_x_size, red_bar_y_size)
+    step += 0.175
+    step %= 8 * math.pi
     
-    if frame >= 3:
-        fill(0.9, 0.9, 0.2)       
-        rotate(180)
-        translate(-32, -32)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 4:
-        fill(0.5, 0.9, 0.2)    
-        rotate(-90)
-        translate(-64, 0)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 5:
-        fill(0.2, 0.9, 0.2)
-        rotate(180)
-        translate(-32, -96)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 6:
-        fill(0.2, 0.9, 0.5)
-        rotate(180)
-        translate(-32, -32)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 7:
-        fill(0.2, 0.9, 0.9)
-        rotate(-90)
-        translate(-64, 0)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 8:
-        fill(0.2, 0.5, 0.9)
-        rotate(180)
-        translate(-32, -96)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 9:
-        fill(0.2, 0.2, 0.9)
-        rotate(180)
-        translate(-32, -32)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 10:
-        fill(0.5, 0.2, 0.9)
-        rotate(-90)
-        translate(-64, 0)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 11:
-        fill(0.9, 0.2, 0.9)
-        rotate(180)
-        translate(-32, -96)
-        polygon((0, 0), (32, 32), (0, 64), close=True)
-
-    if frame >= 12:
-        fill(0.9, 0.2, 0.5)
-        rotate(180)
-        translate(-32, -32)
-        polygon((0, 0), (32, 32), (0, 64), close=True)     
-           
+    
 saveImage("dbe_2016_03_10_v1.gif")
