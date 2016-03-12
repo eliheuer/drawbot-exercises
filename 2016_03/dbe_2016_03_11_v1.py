@@ -13,8 +13,8 @@ import math # for cos and sin functions
 
 # static variables
 canvas = 512  # size of the gif in pixels
-num_frames = 122  # number of frames in the animation
-center = 128 # exact center of the image
+num_frames = 323  # number of frames in the animation
+center = 128
 
 # gird variables
 origin = (128, 128)
@@ -32,6 +32,23 @@ y_pos = 0 # y-axis position
 spacing = 0
 
 
+ball_size_x =[40, 36, 34, 32, 32, 30, 30, 30, 30, 32, 32, 32, 32, 32, 32, 32,
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
+print "ball_size_x: ", len(ball_size_x)
+
+ball_size_y =[32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
+print "ball_size_y: ", len(ball_size_y)
+
+ball_pos_x = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+print "ball_pos_x: ", len(ball_pos_x)
+
+ball_pos_y = [0, 4, 8, 32, 48, 64, 80, 96, 128, 144, 160, 196, 210, 218, 220, 224, 224, 220, 218, 210, 196, 160, 144, 128, 112, 96, 80, 64, 48, 32, 16, 2]
+print "ball_pos_y: ", len(ball_pos_y)
+    
+print range(512, 0, -16)
+
 # draws a new frame in the animation
 def new_page(): 
     newPage(canvas, canvas) # new page from canvas variable
@@ -39,28 +56,10 @@ def new_page():
     fill(0.1) #dark grey
     rect(0, 0, canvas, canvas) # background
     
-# draws the red dot from to position variables    
-def red_dot(x_pos, y_pos):
-    fill(1, 0, 0)
-    stroke(None)
-    oval(int(x_pos) + center, int(y_pos) + center, circle_size, circle_size)
-    
-# draws the red dot from to position variables    
-def yellow_dot(x_pos, y_pos):
-    fill(1, 1, 0)
-    stroke(None)
-    oval(int(x_pos) + center, int(y_pos) + center, circle_size, circle_size)
-
-# draws the red dot from to position variables    
-def blue_dot(x_pos, y_pos):
-    fill(0, 0.2, 1)
-    stroke(None)
-    oval(int(x_pos) + center, int(y_pos) + center, circle_size, circle_size)
- 
 # draws a grid from given arguments    
 def grid(origin, width, height, num_x_divisions, num_y_divisions):
     fill(None)
-    stroke(0.9) # color
+    stroke(0.5) # color
     strokeWidth(1)
     
     translate(*origin)
@@ -77,7 +76,7 @@ def grid(origin, width, height, num_x_divisions, num_y_divisions):
         step_y += increment_y
 
 # draw each frame as a new page
-for frame in range(int(num_frames/2)):
+for frame in range(int(num_frames)):
     new_page()
     
     # draw the grid
@@ -88,21 +87,15 @@ for frame in range(int(num_frames/2)):
     fontSize(32)
     font("Helvetica Neue Bold")
     tracking(-1.2)
-    fill(0.9)
+    fill(0.5)
     stroke(None)
     text("Hello World", (-2, -32))
     
     # animated  dot
-    x_pos = math.cos(step) * amp
-    y_pos = -1 * math.sin(step) * amp 
+    fill(0.9, 0.1, 0.1)
+    stroke(None)
+    oval(ball_pos_x[step], ball_pos_y[step], ball_size_x[step], ball_size_y[step])
+    step += 1
 
-    red_dot((x_pos)-8, (y_pos)-8)
-    yellow_dot(0-8, 0-8)
-    blue_dot((x_pos*2)-8, (y_pos*2)-8)
-
-    step += 0.2
-    step %= 8 * math.pi
-    
-    yellow_dot(0-8, 0-8)
     
 saveImage("dbe_2016_03_11_v1.gif")
