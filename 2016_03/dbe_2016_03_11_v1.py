@@ -38,7 +38,7 @@ def new_page():
     fill(0.1) # color of background
     rect(0, 0, canvas, canvas) # draw the background
 
-# draws the red dot, takes two position variables    
+# draws the red dot from two position variables    
 def red_dot(x_pos, y_pos):
     fill(1, 0, 0)
     stroke(None)
