@@ -11,6 +11,7 @@
 
 # from drawBot import * # uncomment if using setupAsModule.py
 import math # for cos and sin functions
+import random
 
 # static variables
 canvas = 512  # size of the gif in pixels
@@ -33,6 +34,11 @@ y_pos = 0 # y-axis position
 r = 1
 g = 0
 b = 0
+r_array = range(0, 256)
+g_array = range(0, 256)
+b_array = range(0, 256)
+print "r_array: ", r_array
+color_cycle = 0
 
 # draws a new frame in the animation
 def new_page(): 
@@ -72,11 +78,11 @@ for frame in range(num_frames):
     grid(origin, width, height, num_x_units, num_y_units)
     
     # animated  dot
-    for sub_frame in range(num_frames*4):
-        r = math.cos(sub_frame) / 2
-        g = math.sin(sub_frame) / 2
-        b = math.cos(sub_frame) / 4
-        print g
+    for sub_frame in range(num_frames*2):
+        r = r_array[sub_frame] * 0.0039
+        g = g_array[sub_frame] * 0.0039
+        b = b_array[sub_frame] * 0.0039
+        color_cycle += 1
         x_pos = math.cos(step/2) * amp
         y_pos = -1 * math.sin(step) * amp/2
 
