@@ -68,7 +68,7 @@ for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
     
-     # animated  dot
+    # animated  dot
     x_pos = math.cos(step/2) * amp
     y_pos = -1 * math.sin(step) * amp/2
 
