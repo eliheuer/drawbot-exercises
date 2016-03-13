@@ -9,8 +9,8 @@
 #                                                                             #
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
-import math # for cos and sin functions
 # from drawBot import * # uncomment if using setupAsModule.py
+import math # for cos and sin functions
 
 # static variables
 canvas = 512  # size of the gif in pixels
@@ -20,8 +20,16 @@ num_frames = 32  # number of frames in the animation
 origin = (128, 128)
 width = 256
 height = 256
-num_x_divisions = 8
-num_y_divisions = 8
+center = width/2
+num_x_units = 8
+num_y_units = 8
+
+# red dot variables
+dot_size = 32  
+amp = 80 # short for amplitude
+step = 0 # step in the animation
+x_pos = 0 # x-axis position
+y_pos = 0 # y-axis position
 
 # draws a new frame in the animation
 def new_page(): 
@@ -29,6 +37,12 @@ def new_page():
     frameDuration(1/24) # set the dividend to desired FPS (frames per second) 
     fill(0.1) # color of background
     rect(0, 0, canvas, canvas) # draw the background
+
+# draws the red dot, takes two position variables    
+def red_dot(x_pos, y_pos):
+    fill(1, 0, 0)
+    stroke(None)
+    oval(int(x_pos) + center, int(y_pos) + center, dot_size, dot_size)
        
 # draws a grid from given arguments    
 def grid(origin, width, height, num_x_units, num_y_units):
@@ -54,4 +68,12 @@ for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
     
+     # animated  dot
+    x_pos = math.cos(step/2) * amp
+    y_pos = -1 * math.sin(step) * amp/2
+
+    red_dot((x_pos)-dot_size/2, (y_pos)-dot_size/2)
+    step += 0.4
+    step %= 8 * math.pi
+           
 saveImage("dbe_2016_03_11_v1.gif")
