@@ -4,7 +4,7 @@
 #                                                                             #
 #  WWW: https://www.tumblr.com/blog/drawbot-exercises                         #
 #  Mail: eliheuer@gmail.com                                                   #
-#  Drawn on: Pi day! 03/14/16 -- version 1                                    #
+#  Drawn on: Pi Day! 03/14/16 -- version 1                                    #
 #  Made with DrawBot: http://www.drawbot.com/                                 #
 #                                                                             #
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
@@ -28,6 +28,7 @@ num_y_units = 8
 dot_size = 16  
 amp = 128 # short for amplitude
 step = 0 # step in the animation
+step_string = "{:.6f}".format(step)
 x_pos = 0 # x-axis position
 y_pos = 0 # y-axis position
 r = 1
@@ -47,7 +48,7 @@ def dot(x_pos, y_pos, r, b, g):
     stroke(None)
     oval(int(x_pos) + center, int(y_pos) + center, dot_size, dot_size)
     
-# draws a guide showing the sine of a    
+# draws a guide showing the sine of dot    
 def sine_lines(width, height, x_pos, y_pos, r, b, g):
     fill(r, g, b)
     stroke(None)
@@ -110,6 +111,6 @@ for frame in range(num_frames):
     text(step_string, (-2, -64))
     
     step += 0.02 * math.pi
-    step_string = "{:.6f}".format(step)
+    step_string = "{:.8f}".format(step)
                
 saveImage("dbe_2016_03_14_v1.gif")
