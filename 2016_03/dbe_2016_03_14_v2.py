@@ -27,8 +27,9 @@ num_y_units = 8
 # dot variables
 dot_size = 16  
 amp = 128 # short for amplitude
-step = math.pi # step in the animation
-step_string = "{:.6f}".format(step)
+step = 0 # step in the animation
+fake_step = math.pi # a dumb hack >_<
+step_string = "{:.8f}".format(fake_step)
 x_pos = 0 # x-axis position
 y_pos = 0 # y-axis position
 r = 1
@@ -110,7 +111,8 @@ for frame in range(num_frames):
     fill(1, 0, 0)
     text(step_string, (-2, -64))
     
-    step -= 0.02 * math.pi
-    step_string = "{:.8f}".format(step/2)
+    step += 0.02 * math.pi
+    step_string = "{:.8f}".format(fake_step)
+    fake_step -= math.pi / 100
                
 saveImage("dbe_2016_03_14_v2.gif")
