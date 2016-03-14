@@ -91,24 +91,25 @@ for frame in range(num_frames):
     # animated dot
     x_pos = math.cos(step) * amp
     y_pos = -1 * math.sin(step) * amp
-    x_pos_string = "{:.9f}".format(x_pos)
-    y_pos_string = "{:.9f}".format(y_pos)
+    x_pos_string = "{:.3f}".format(x_pos)
+    y_pos_string = "{:.3f}".format(y_pos)
     print "x position: ", x_pos_string
     print "y position: ", y_pos_string
     
     sine_lines(width, height, (x_pos)-dot_size/2, (y_pos)-dot_size/2, r, g, b)
     dot((x_pos)-dot_size/2, (y_pos)-dot_size/2, r, g, b)
     
-    step += 0.02 * math.pi
-    
     # type 
-    fontSize(32)
+    fontSize(24)
     font("Helvetica Neue Bold")
-    tracking(-1.2)
-    fill(1, 0, 0)
+    tracking(0)
+    fill(1, 1, 1)
     stroke(None)
-    text("Red Dot X Position: ", (-2, -32))
-    text("Red Dot Y Position: ", (-2, -64))
-    text("Pi * Frame Number: ", (-2, -96))
-           
+    text("Happy π Day", (-2, -32))
+    fill(1, 0, 0)
+    text(step_string, (-2, -64))
+    
+    step += 0.02 * math.pi
+    step_string = "{:.6f}".format(step)
+               
 saveImage("dbe_2016_03_14_v1.gif")
