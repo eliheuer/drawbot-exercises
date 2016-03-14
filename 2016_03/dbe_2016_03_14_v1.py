@@ -30,9 +30,9 @@ amp = 128 # short for amplitude
 step = 0 # step in the animation
 x_pos = 0 # x-axis position
 y_pos = 0 # y-axis position
-r = 0.9
-g = 0.1
-b = 0.1
+r = 1
+g = 1
+b = 1
 
 # draws a new frame in the animation
 def new_page(): 
@@ -43,7 +43,7 @@ def new_page():
 
 # draws the dot from two position variables    
 def dot(x_pos, y_pos, r, b, g):
-    fill(r, g, b)
+    fill(1, 0, 0)
     stroke(None)
     oval(int(x_pos) + center, int(y_pos) + center, dot_size, dot_size)
     
@@ -52,8 +52,7 @@ def sine_lines(width, height, x_pos, y_pos, r, b, g):
     fill(r, g, b)
     stroke(None)
     oval(center-dot_size/2, center-dot_size/2, dot_size, dot_size)
-    oval(int(x_pos) + (center+dot_size/2), int(y_pos) + (center+dot_size/2),
-        width, height)
+    oval(int(x_pos) + center, center-dot_size/2, dot_size, dot_size)
     fill(None)
     strokeWidth(3)
     stroke(r, g, b)
@@ -92,10 +91,24 @@ for frame in range(num_frames):
     # animated dot
     x_pos = math.cos(step) * amp
     y_pos = -1 * math.sin(step) * amp
-
-    dot((x_pos)-dot_size/2, (y_pos)-dot_size/2, r, g, b)
-    sine_lines(width, height, (x_pos)-dot_size/2, (y_pos)-dot_size/2, r, g, b)
+    x_pos_string = "{:.9f}".format(x_pos)
+    y_pos_string = "{:.9f}".format(y_pos)
+    print "x position: ", x_pos_string
+    print "y position: ", y_pos_string
     
-    step += 0.1 * math.pi
+    sine_lines(width, height, (x_pos)-dot_size/2, (y_pos)-dot_size/2, r, g, b)
+    dot((x_pos)-dot_size/2, (y_pos)-dot_size/2, r, g, b)
+    
+    step += 0.02 * math.pi
+    
+    # type 
+    fontSize(32)
+    font("Helvetica Neue Bold")
+    tracking(-1.2)
+    fill(1, 0, 0)
+    stroke(None)
+    text("Red Dot X Position: ", (-2, -32))
+    text("Red Dot Y Position: ", (-2, -64))
+    text("Pi * Frame Number: ", (-2, -96))
            
 saveImage("dbe_2016_03_14_v1.gif")
