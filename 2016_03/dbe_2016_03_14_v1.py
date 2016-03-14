@@ -47,18 +47,29 @@ def dot(x_pos, y_pos, r, b, g):
     stroke(None)
     oval(int(x_pos) + center, int(y_pos) + center, dot_size, dot_size)
     
-# draws the dot from two position variables    
+# draws a guide showing the sine of a    
 def sine_lines(width, height, x_pos, y_pos, r, b, g):
+    fill(r, g, b)
+    stroke(None)
+    oval(center-dot_size/2, center-dot_size/2, dot_size, dot_size)
+    oval(int(x_pos) + (center+dot_size/2), int(y_pos) + (center+dot_size/2),
+        width, height)
     fill(None)
-    strokeWidth(1)
+    strokeWidth(3)
     stroke(r, g, b)
-    oval(center, center, width, height)
+    line((center, center), 
+        (int(x_pos) + (center+dot_size/2), int(y_pos) + (center+dot_size/2)))
+    line((center, center), 
+        (int(x_pos) + (center+dot_size/2), center))
+    line((int(x_pos) + (center+dot_size/2), center), 
+        (int(x_pos) + (center+dot_size/2), int(y_pos) + (center+dot_size/2)))
+    oval(center-128, center-128, width, height)
        
 # draws a grid from given arguments    
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
-    stroke(0.7) 
+    stroke(0.5) 
     fill(None)
     
     step_x = 0 
