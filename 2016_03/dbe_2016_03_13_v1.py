@@ -14,7 +14,7 @@ import math # for cos and sin functions
 
 # static variables
 canvas = 512  # size of the gif in pixels
-num_frames = 64  # number of frames in the animation
+num_frames = 100  # number of frames in the animation
 
 # gird variables
 origin = (128, 128)
@@ -33,11 +33,12 @@ y_pos = 0 # y-axis position
 r = 0.2
 g = 0.2
 b = 0.2
-r_array = range(-1600, 10000, 16)
-g_array = range(-1600, 10000, 16)
-b_array = range(-1600, 10000, 16)
+r_array = range(0, 1024, 1)
+g_array = range(0, 1024, 1)
+b_array = range(0, 1024, 1)
 print "r_array: ", r_array
 color_cycle = 0
+step_step = 0
 
 # draws a new frame in the animation
 def new_page(): 
@@ -46,8 +47,8 @@ def new_page():
     fill(0.1) # color of background
     rect(0, 0, canvas, canvas) # draw the background
 
-# draws the red dot from two position variables    
-def red_dot(x_pos, y_pos, r, b, g):
+# draws the dot from two position variables    
+def dot(x_pos, y_pos, r, b, g):
     fill(r, g, b)
     stroke(None)
     oval(int(x_pos) + center, int(y_pos) + center, dot_size, dot_size)
@@ -77,16 +78,18 @@ for frame in range(num_frames):
     grid(origin, width, height, num_x_units, num_y_units)
     
     # animated dot
-    for sub_frame in range(num_frames*8):
-        r = r_array[sub_frame] * 0.0001
-        g = g_array[sub_frame] * 0.0001
-        b = g_array[sub_frame] * 0.0001
+    for sub_frame in range(num_frames):
+        r = g_array[sub_frame] * 0.004
+        g = 0.4
+        b = g_array[sub_frame] * 0.02
         color_cycle += 1
         x_pos = math.cos(step) * amp
         y_pos = -1 * math.sin(step) * amp
 
-        red_dot((x_pos)-dot_size/2, (y_pos)-dot_size/2, r, g, b)
-        step += 0.1001
+        dot((x_pos)-dot_size/2, (y_pos)-dot_size/2, r, g, b)
+
+        step += step_step
+        step_step += 0.000002 * math.pi
         step %= 8 * math.pi
            
 saveImage("dbe_2016_03_13_v1.gif")
