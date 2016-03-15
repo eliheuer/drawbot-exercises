@@ -14,7 +14,7 @@ import math # for cos, sin and pi functions
 
 # static variables
 canvas = 512  # size of the gif in pixels
-num_frames = 50  # number of frames in the animation
+num_frames = 100  # number of frames in the animation
 
 # gird variables
 origin = (128, 128)
@@ -29,14 +29,19 @@ circle_w = 256  #
 circle_h = 256  #
 circle_x = 0    #
 circle_y = 0    #
-divisions = 0   
-step = 0
-amp = 0
+divisions = 1   
+step = 1
+amp = 1
+r = 1
+g = 1
+b = 0
 
 # dot variables
-dot_size = 16  
-dot_amp = 64 # short for amplitude
+dot_size = 12  
+dot_amp = 32 # short for amplitude
+amp_step = 0
 dot_step = 0.0 # step in the animation
+dot_inc = 0.04
 dot_x = 0 # x-axis position
 dot_y = 0 # y-axis position
 
@@ -49,17 +54,16 @@ def new_page():
 
 
 # draws the dot from two position variables    
-def dot(dot_x, dot_y):
-    fill(1, 0, 0)
+def dot(dot_x, dot_y, r, g, b):
+    fill(r, g, b)
     stroke(None)
     oval(int(dot_x) + center, int(dot_y) + center, dot_size, dot_size)
     
 # draws a circle from 5 arguments, see 'gird variables' above
-def draw_circle(circle_w, circle_h, circle_x, circle_y, divisions, dot_step):
+def draw_circle(circle_w, circle_h, circle_x, circle_y, 
+    divisions, dot_amp, dot_step, dot_inc, r, g, b):
     # dot        
     for segment in range(divisions):
-        
-        oval(112, 112, 16, 16)
         
         dot_x = math.cos(dot_step) * dot_amp
         dot_y = -1 * math.sin(dot_step) * dot_amp
@@ -67,38 +71,11 @@ def draw_circle(circle_w, circle_h, circle_x, circle_y, divisions, dot_step):
         y_pos_string = "{:.3f}".format(dot_y)
         print "x position: ", x_pos_string
         print "y position: ", y_pos_string
-    
-        dot((dot_x)-dot_size/2, (dot_y)-dot_size/2)
-    
-        dot_step += 0.04 * math.pi
         
-        # create a new empty path
-        newPath()
-        stroke(3)
-        fill(1, 0, 0)
-        # set the first oncurve point
-        moveTo((128, 128))
-        # line to from the previous point to a new point
-        lineTo((100, 200))
-        lineTo((150, 250))
-        lineTo((200, 200))
-        # curve to a point with two given handles
-        lineTo((128,128))
-        # close the path
-        closePath()
-        # draw the path
-        drawPath()
-        
-def draw_type():
-    fontSize(30)
-    font("Helvetica Neue Bold")
-    tracking(0)
-    fill(1, 1, 1)
-    stroke(None)
-    text("Techno Subgenre:", (-2, -32))
-    fill(1, 1, 0)
-    text("Happy Hardcore", (-2, -64))
+        dot((dot_x)-dot_size/2, (dot_y)-dot_size/2, r, g, b)
     
+        dot_step += dot_inc * math.pi
+        
 # draws a grid from 5 arguments, see 'gird variables' above
 def draw_grid(origin, width, height, num_x_units, num_y_units):
     unit_y = (height / num_y_units)
@@ -121,15 +98,34 @@ def draw_grid(origin, width, height, num_x_units, num_y_units):
 # draw each frame as a new page
 for frame in range(num_frames):
     new_page()
-    
+
     draw_grid(origin, grid_w, grid_h, grid_x_units, grid_y_units)
+
+    r = 1
+    g = 0 
+    b = 0
+    dot_amp = 32 + amp_step
+    dot_inc = 0.25
+    draw_circle(circle_w, circle_h, circle_x, circle_y, 
+        divisions, dot_amp, dot_step, dot_inc, r, g, b)
     
-    fill(1, 1, 0)
-    oval(32, 32, 192, 192)
-    
-    draw_circle(circle_w, circle_h, circle_x, circle_y, divisions, dot_step)
-    draw_type()
-    
+    r = 1
+    g = 0.5 
+    b = 0
+    dot_amp = 64 + amp_step
+    dot_inc = 0.125
+    draw_circle(circle_w, circle_h, circle_x, circle_y, 
+        divisions, dot_amp, dot_step, dot_inc, r, g, b)
+     
+    r = 1
+    g = 1
+    b = 0
+    dot_amp = 96 + amp_step
+    dot_inc = 0.0625
+    draw_circle(circle_w, circle_h, circle_x, circle_y, 
+        divisions, dot_amp, dot_step, dot_inc, r, g, b)
+           
+    amp_step += 2
     divisions += 1
                
-saveImage("dbe_2016_03_15_v2.gif")
+saveImage("dbe_2016_03_15_v1.gif")
