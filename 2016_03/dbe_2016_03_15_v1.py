@@ -14,24 +14,31 @@ import math # for cos, sin and pi functions
 
 # static variables
 canvas = 512  # size of the gif in pixels
-num_frames = 100  # number of frames in the animation
+num_frames = 50  # number of frames in the animation
 
 # gird variables
 origin = (128, 128)
-width = 256
-height = 256
-center = width/2
-num_x_units = 8
-num_y_units = 8
+grid_w = 256
+grid_h = 256
+center = grid_w / 2
+grid_x_units = 8
+grid_y_units = 8
 
 # circle variables
 circle_w = 256  #
 circle_h = 256  #
 circle_x = 0    #
 circle_y = 0    #
-divisions = 8   
+divisions = 0   
 step = 0
-amp = 0 
+amp = 0
+
+# dot variables
+dot_size = 16  
+dot_amp = 64 # short for amplitude
+dot_step = 0.0 # step in the animation
+dot_x = 0 # x-axis position
+dot_y = 0 # y-axis position
 
 # draws a new frame in the animation
 def new_page(): 
@@ -40,32 +47,31 @@ def new_page():
     fill(0.1) # color of background
     rect(0, 0, canvas, canvas) # draw the background
 
+
 # draws the dot from two position variables    
-def dot(x_pos, y_pos, r, b, g):
+def dot(dot_x, dot_y):
     fill(1, 0, 0)
     stroke(None)
-    oval(int(x_pos) + center, int(y_pos) + center, dot_size, dot_size)
+    oval(int(dot_x) + center, int(dot_y) + center, dot_size, dot_size)
     
-# draws a guide showing the sine of dot    
-def draw_circle_old_news(width, height, x_pos, y_pos, divisions):
-    stroke(None)
-    oval(center-dot_size/2, center-dot_size/2, dot_size, dot_size)
-    oval(int(x_pos) + center, center-dot_size/2, dot_size, dot_size)
-    fill(None)
-    strokeWidth(3)
-    stroke(r, g, b)
-    line((center, center), 
-        (int(x_pos) + (center+dot_size/2), int(y_pos) + (center+dot_size/2)))
-    line((center, center), 
-        (int(x_pos) + (center+dot_size/2), center))
-    line((int(x_pos) + (center+dot_size/2), center), 
-        (int(x_pos) + (center+dot_size/2), int(y_pos) + (center+dot_size/2)))
-    oval(center-128, center-128, width, height)
-    
-# draws a guide showing the sine of dot    
-def draw_circle(circle_w, circle_h, circle_x, circle_y, divisions):
-    
+# draws a circle from 5 arguments, see 'gird variables' above
+def draw_circle(circle_w, circle_h, circle_x, circle_y, divisions, dot_step):
+    # dot        
     for segment in range(divisions):
+        
+        oval(112, 112, 16, 16)
+        
+        dot_x = math.cos(dot_step) * dot_amp
+        dot_y = -1 * math.sin(dot_step) * dot_amp
+        x_pos_string = "{:.3f}".format(dot_x)
+        y_pos_string = "{:.3f}".format(dot_y)
+        print "x position: ", x_pos_string
+        print "y position: ", y_pos_string
+    
+        dot((dot_x)-dot_size/2, (dot_y)-dot_size/2)
+    
+        dot_step += 0.04 * math.pi
+        
         # create a new empty path
         newPath()
         stroke(3)
@@ -74,6 +80,7 @@ def draw_circle(circle_w, circle_h, circle_x, circle_y, divisions):
         moveTo((128, 128))
         # line to from the previous point to a new point
         lineTo((100, 200))
+        lineTo((150, 250))
         lineTo((200, 200))
         # curve to a point with two given handles
         lineTo((128,128))
@@ -83,21 +90,14 @@ def draw_circle(circle_w, circle_h, circle_x, circle_y, divisions):
         drawPath()
         
 def draw_type():
-    fontSize(24)
+    fontSize(30)
     font("Helvetica Neue Bold")
     tracking(0)
     fill(1, 1, 1)
     stroke(None)
-    text("Happy Hardcore", (-2, -32))
-
-def anime():
-        # animated dot
-    x_pos = math.cos(step) * amp
-    y_pos = -1 * math.sin(step) * amp
-    x_pos_string = "{:.3f}".format(x_pos)
-    y_pos_string = "{:.3f}".format(y_pos)
-    print "x position: ", x_pos_string
-    print "y position: ", y_pos_string
+    text("Techno Subgenre:", (-2, -32))
+    fill(1, 1, 0)
+    text("Happy Hardcore", (-2, -64))
     
 # draws a grid from 5 arguments, see 'gird variables' above
 def draw_grid(origin, width, height, num_x_units, num_y_units):
@@ -121,12 +121,15 @@ def draw_grid(origin, width, height, num_x_units, num_y_units):
 # draw each frame as a new page
 for frame in range(num_frames):
     new_page()
-    draw_grid(origin, width, height, num_x_units, num_y_units)
-
-    draw_circle(circle_w, circle_h, circle_x, circle_y, divisions)
     
+    draw_grid(origin, grid_w, grid_h, grid_x_units, grid_y_units)
+    
+    fill(1, 1, 0)
+    oval(32, 32, 192, 192)
+    
+    draw_circle(circle_w, circle_h, circle_x, circle_y, divisions, dot_step)
     draw_type()
-
-    step += 0.02 * math.pi
+    
+    divisions += 1
                
 saveImage("dbe_2016_03_15_v2.gif")
