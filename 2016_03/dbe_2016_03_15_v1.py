@@ -4,7 +4,7 @@
 #                                                                             #
 #  WWW: https://www.tumblr.com/blog/drawbot-exercises                         #
 #  Mail: eliheuer@gmail.com                                                   #
-#  Drawn on: 03/15/16 -- version 2                                            #
+#  Drawn on: 03/15/16 -- version 1                                           #
 #  Made with DrawBot: http://www.drawbot.com/                                 #
 #                                                                             #
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
@@ -29,6 +29,15 @@ circle_w = 256  #
 circle_h = 256  #
 circle_x = 0    #
 circle_y = 0    #
+
+# dot variables
+dot_size = 12  
+dot_amp = 32
+amp_step = 0
+dot_step = 0.0
+dot_inc = 0.04
+dot_x = 0
+dot_y = 0 
 divisions = 1   
 step = 1
 amp = 1
@@ -36,23 +45,13 @@ r = 1
 g = 1
 b = 0
 
-# dot variables
-dot_size = 12  
-dot_amp = 32 # short for amplitude
-amp_step = 0
-dot_step = 0.0 # step in the animation
-dot_inc = 0.04
-dot_x = 0 # x-axis position
-dot_y = 0 # y-axis position
-
 # draws a new frame in the animation
 def new_page(): 
     newPage(canvas, canvas) # new page from canvas variable
     frameDuration(1/24) # set the dividend to desired FPS (frames per second) 
     fill(0.1) # color of background
     rect(0, 0, canvas, canvas) # draw the background
-
-
+    
 # draws the dot from two position variables    
 def dot(dot_x, dot_y, r, g, b):
     fill(r, g, b)
@@ -67,13 +66,7 @@ def draw_circle(circle_w, circle_h, circle_x, circle_y,
         
         dot_x = math.cos(dot_step) * dot_amp
         dot_y = -1 * math.sin(dot_step) * dot_amp
-        x_pos_string = "{:.3f}".format(dot_x)
-        y_pos_string = "{:.3f}".format(dot_y)
-        print "x position: ", x_pos_string
-        print "y position: ", y_pos_string
-        
         dot((dot_x)-dot_size/2, (dot_y)-dot_size/2, r, g, b)
-    
         dot_step += dot_inc * math.pi
         
 # draws a grid from 5 arguments, see 'gird variables' above
@@ -124,8 +117,8 @@ for frame in range(num_frames):
     dot_inc = 0.0625
     draw_circle(circle_w, circle_h, circle_x, circle_y, 
         divisions, dot_amp, dot_step, dot_inc, r, g, b)
-           
-    amp_step += 2
+    
+    amp_step += 1
     divisions += 1
                
 saveImage("dbe_2016_03_15_v1.gif")
