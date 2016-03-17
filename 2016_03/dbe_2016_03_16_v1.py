@@ -4,7 +4,7 @@
 #                                                                             #
 #  WWW: https://www.tumblr.com/blog/drawbot-exercises                         #
 #  Mail: eliheuer@gmail.com                                                   #
-#  Drawn on: Pi Day! 03/16/16 -- version 1                                    #
+#  Drawn on: 03/16/16 -- version 1                                            #
 #  Made with DrawBot: http://www.drawbot.com/                                 #
 #                                                                             #
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
