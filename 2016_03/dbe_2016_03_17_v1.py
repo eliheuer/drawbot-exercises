@@ -47,7 +47,7 @@ def new_page():
 def box(x_pos, y_pos, box_size_x, box_size_y, box_rt):
     fill(1)
     strokeWidth(1)
-    stroke(0.2)
+    stroke(0.3)
     rotate(box_rt)
     rect((x_pos - 2) + center, (y_pos - 2) + center, box_size_x, box_size_y)
     
@@ -62,7 +62,7 @@ def draw_path(path_x, path_y, box_count, dot_amp, box_step, box_rt):
        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
-    strokeWidth(2)
+    strokeWidth(1)
     stroke(0.3) 
     fill(None)
     
