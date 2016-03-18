@@ -15,7 +15,7 @@ from itertools import cycle, chain, repeat
 
 # static variables
 canvas = 512 
-num_frames = 32 
+num_frames = 100 
 
 # gird variables
 origin = (128, 128)
@@ -33,21 +33,21 @@ divisions = 0
 # box variables
 box_size_x = 36 
 box_size_y = 36
-box_amp = 11
+box_amp = 126
 box_step = 0
-box_count = 0
+box_count = 25
 
 # draws a new frame in the animation
 def new_page(): 
     newPage(canvas, canvas) 
-    frameDuration(1/20) 
+    frameDuration(1/24) 
     fill(0.8) 
     rect(0, 0, canvas, canvas) 
 
 # draws the dot from two position variables    
 def box(x_pos, y_pos, box_size_x, box_size_y):
     fill(1)
-    strokeWidth(2)
+    strokeWidth(1)
     stroke(0.2)
     rect(int(x_pos) + center, int(y_pos) + center, 
         box_size_x, box_size_y)
@@ -66,7 +66,7 @@ def draw_path(path_x, path_y, box_count, dot_amp, box_step):
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(2)
-    stroke(1) 
+    stroke(0.3) 
     fill(None)
     
     step_x = 0 
@@ -85,11 +85,10 @@ def grid(origin, width, height, num_x_units, num_y_units):
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
-    
         
     draw_path(path_x, path_y, box_count, box_amp, box_step)
     box_count_string = "{:03d}".format(box_count)
-    box_count += 2
-    box_amp += math.cos(frame) * box_count
+    #box_count += 1
+    box_step += 0.2
     
 saveImage("dbe_2016_03_17_v1.gif")
