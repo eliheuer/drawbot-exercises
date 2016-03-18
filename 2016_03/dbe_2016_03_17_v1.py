@@ -11,11 +11,11 @@
 
 # from drawBot import * # uncomment if using setupAsModule.py
 import math 
-from itertools import cycle, chain, repeat
+#from itertools import cycle, chain, repeat
 
 # static variables
 canvas = 512 
-num_frames = 100 
+num_frames = 63
 
 # gird variables
 origin = (128, 128)
@@ -33,19 +33,17 @@ divisions = 0
 # box variables
 box_size_x = 36 
 box_size_y = 36
-box_amp = 110
+box_amp = 74
 box_step = 0
-box_count = 1
+box_count = 51
 box_rt = 0
 
-# draws a new frame in the animation
 def new_page(): 
     newPage(canvas, canvas) 
     frameDuration(1/24) 
     fill(0.8) 
     rect(0, 0, canvas, canvas) 
-
-# draws the dot from two position variables    
+        
 def box(x_pos, y_pos, box_size_x, box_size_y, box_rt):
     fill(1)
     strokeWidth(1)
@@ -53,7 +51,6 @@ def box(x_pos, y_pos, box_size_x, box_size_y, box_rt):
     rotate(box_rt)
     rect((x_pos - 2) + center, (y_pos - 2) + center, box_size_x, box_size_y)
     
-# draws a circle from 5 arguments, see 'gird variables' above
 def draw_path(path_x, path_y, box_count, dot_amp, box_step, box_rt):
      
     for segment in range(box_count):
@@ -61,9 +58,8 @@ def draw_path(path_x, path_y, box_count, dot_amp, box_step, box_rt):
         box_y = math.sin(box_step) * box_amp
         box(box_x, box_y, box_size_x, box_size_y, box_rt)
         
-        box_step += 0.2 * math.pi
+        box_step += 0.01 * math.pi
        
-# draws a grid from given arguments    
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(2)
@@ -81,17 +77,13 @@ def grid(origin, width, height, num_x_units, num_y_units):
     for y in range(num_y_units + 1):
         line((0, step_y), (width, step_y))
         step_y += unit_y
-
-# draw each frame as a new page
-
+        
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
     translate(-16, -16)
     draw_path(path_x, path_y, box_count, box_amp, box_step, box_rt)
     box_count_string = "{:03d}".format(box_count)
-    #box_count += 4
     box_step += 0.1
-    box_rt += 0.01
     
 saveImage("dbe_2016_03_17_v1.gif")
