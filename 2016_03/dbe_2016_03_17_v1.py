@@ -11,10 +11,11 @@
 
 # from drawBot import * # uncomment if using setupAsModule.py
 import math 
+from itertools import cycle, chain, repeat
 
 # static variables
 canvas = 512 
-num_frames = 76 
+num_frames = 32 
 
 # gird variables
 origin = (128, 128)
@@ -24,25 +25,17 @@ center = width/2
 num_x_units = 7
 num_y_units = 7
 
-# circle variables
-circle_w = 256 - 32
-circle_h = 256 - 32
-circle_x = 0
-circle_y = 0
+# path variables
+path_x = 0
+path_y = 0
 divisions = 0
 
 # box variables
-box_size_x = 36 * 2
+box_size_x = 36 
 box_size_y = 36
-box_amp = 110
+box_amp = 11
 box_step = 0
-box_inc = 16
-x_pos = 0
-y_pos = 0
-box_color = 1
-box_count = 100
-box_start = 0
-box_start_step = 0
+box_count = 0
 
 # draws a new frame in the animation
 def new_page(): 
@@ -52,22 +45,20 @@ def new_page():
     rect(0, 0, canvas, canvas) 
 
 # draws the dot from two position variables    
-def box(x_pos, y_pos, box_size_x, box_size_y, box_color):
-    fill((x_pos * 0.02) + 1, (y_pos * -0.01) + 1, 0.5)
-    strokeWidth(1)
-    stroke(0.1)
+def box(x_pos, y_pos, box_size_x, box_size_y):
+    fill(1)
+    strokeWidth(2)
+    stroke(0.2)
     rect(int(x_pos) + center, int(y_pos) + center, 
         box_size_x, box_size_y)
     
 # draws a circle from 5 arguments, see 'gird variables' above
-def draw_circle(circle_w, circle_h, circle_x, circle_y, 
-    box_count, dot_amp, box_step, dot_inc, box_start):
+def draw_path(path_x, path_y, box_count, dot_amp, box_step):
    
     for segment in range(box_count):
-        box_x = math.cos(box_step + box_start) * (box_amp - 16)
-        box_y = -1 * math.sin(box_step + box_start) * box_amp
-        box((box_x)-box_size_x/2, (box_y)-box_size_y/2, 
-            box_size_x, box_size_y, box_color)
+        box_x = math.cos(box_step) * (box_amp - 16)
+        box_y = -1 * math.sin(box_step) * box_amp
+        box((box_x)-box_size_x/2, (box_y)-box_size_y/2, box_size_x, box_size_y)
         
         box_step += 0.02 * math.pi
        
@@ -94,10 +85,11 @@ def grid(origin, width, height, num_x_units, num_y_units):
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
-    draw_circle(circle_w, circle_h, circle_x, circle_y, 
-        box_count, box_amp, box_step, box_inc, box_start)
+    
+        
+    draw_path(path_x, path_y, box_count, box_amp, box_step)
     box_count_string = "{:03d}".format(box_count)
-    box_count += 1
-    box_start += 0.02 
-
+    box_count += 2
+    box_amp += math.cos(frame) * box_count
+    
 saveImage("dbe_2016_03_17_v1.gif")
