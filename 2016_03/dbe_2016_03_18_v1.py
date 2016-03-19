@@ -31,11 +31,11 @@ path_y = 0
 divisions = 0
 
 # box variables
-box_size_x = 64
-box_size_y = 40
-box_amp = 34
+box_size_x = 32
+box_size_y = 32
+box_amp = 15
 box_step = 0
-box_count = 24
+box_count = 100
 box_rt = 2
 
 def new_page(): 
@@ -47,25 +47,25 @@ def new_page():
 def box(x_pos, y_pos, box_size_x, box_size_y, box_rt):
     fill(1)
     strokeWidth(1)
-    stroke(0.3)
-    rotate(3)
-    rect((x_pos - 2) + center, (y_pos - 2) + center, box_size_x, box_size_y)
+    stroke(0.1)
+    rotate(12)
+    rect((x_pos - 2) + center/2, (y_pos - 2) + center/2, box_size_x, box_size_y)
     
 def draw_path(path_x, path_y, box_count, dot_amp, box_step, box_rt):
-     
+    
+    box_rt = 0
     for segment in range(box_count):
         box_x = math.cos(box_step) * box_amp
         box_y = math.sin(box_step) * box_amp
-        box_rt += 0.4
         box(box_x, box_y, box_size_x, box_size_y, box_rt)
-
+        box_rt += 2
         
-        box_step += 0.01 #* math.pi
+        box_step += 0.02 #* math.pi
        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
-    stroke(0.3) 
+    stroke(1, 0, 0) 
     fill(None)
     
     step_x = 0 
@@ -83,8 +83,8 @@ def grid(origin, width, height, num_x_units, num_y_units):
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
-    translate(128, -64)
-    rotate(30)
+    translate(128, 128)
+    rotate(0)
     draw_path(path_x, path_y, box_count, box_amp, box_step, box_rt)
     box_count_string = "{:03d}".format(box_count)
     box_step += 0.1
