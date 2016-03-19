@@ -11,7 +11,6 @@
 
 # from drawBot import * # uncomment if using setupAsModule.py
 import math 
-#from itertools import cycle, chain, repeat
 
 # static variables
 canvas = 512 
@@ -33,7 +32,7 @@ divisions = 0
 # box variables
 box_size_x = 32
 box_size_y = 32
-box_amp = 15
+box_amp = 24
 box_step = 0
 box_count = 100
 box_rt = 2
@@ -44,23 +43,20 @@ def new_page():
     fill(0.8) 
     rect(0, 0, canvas, canvas) 
         
-def box(x_pos, y_pos, box_size_x, box_size_y, box_rt):
+def box(x_pos, y_pos, box_size_x, box_size_y):
     fill(1)
     strokeWidth(1)
     stroke(0.1)
-    rotate(12)
-    rect((x_pos - 2) + center/2, (y_pos - 2) + center/2, box_size_x, box_size_y)
+    rotate(6)
+    rect((x_pos - 2) + center/2, (y_pos - 2) + center/2, 
+        box_size_x, box_size_y)
     
-def draw_path(path_x, path_y, box_count, dot_amp, box_step, box_rt):
-    
-    box_rt = 0
+def draw_path(path_x, path_y, box_count, dot_amp, box_step):  
     for segment in range(box_count):
         box_x = math.cos(box_step) * box_amp
         box_y = math.sin(box_step) * box_amp
-        box(box_x, box_y, box_size_x, box_size_y, box_rt)
-        box_rt += 2
-        
-        box_step += 0.02 #* math.pi
+        box(box_x, box_y, box_size_x, box_size_y)
+        box_step += 0.1 * math.pi
        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
@@ -84,9 +80,7 @@ for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
     translate(128, 128)
-    rotate(0)
-    draw_path(path_x, path_y, box_count, box_amp, box_step, box_rt)
-    box_count_string = "{:03d}".format(box_count)
+    draw_path(path_x, path_y, box_count, box_amp, box_step)
     box_step += 0.1
     
 saveImage("dbe_2016_03_18_v1.gif")
