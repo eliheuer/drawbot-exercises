@@ -61,7 +61,7 @@ def draw_path(path_x, path_y, box_count, dot_amp, box_step):
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
-    stroke(1, 0, 0) 
+    stroke(0.5) 
     fill(None)
     
     step_x = 0 
