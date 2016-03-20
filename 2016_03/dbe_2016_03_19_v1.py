@@ -22,8 +22,8 @@ origin = (128, 128)
 width = 256
 height = 256
 center = width/2
-num_x_units = 7
-num_y_units = 7
+num_x_units = 8
+num_y_units = 8
 
 # path variables
 path_x = 0
@@ -33,7 +33,7 @@ divisions = 0
 # box variables
 dot_size_x = 16 
 dot_size_y = 16
-dot_amp = 128
+dot_amp = 128 - 16
 dot_step = 25
 dot_count = 51
 
@@ -50,9 +50,10 @@ def dot(dot_x, dot_y, dot_size_x, dot_size_y):
     
 def draw_path(path_x, path_y, dot_count, dot_amp, dot_step):
     for segment in range(dot_count):
+        dot_amp = math.cos(dot_step) + dot_amp
         dot_x = math.cos(dot_step) * dot_amp
         dot_y = math.sin(dot_step) * dot_amp
-        dot(dot_x, dot_y, dot_size_x, dot_size_y)
+        dot(dot_x-8, dot_y-8, dot_size_x, dot_size_y)
         
         dot_step += 0.01 * math.pi
        
@@ -77,9 +78,16 @@ def grid(origin, width, height, num_x_units, num_y_units):
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
-    translate(-16, -16)
+    
     draw_path(path_x, path_y, dot_count, dot_amp, dot_step)
-    #box_count_string = "{:03d}".format(box_count)
+    draw_path(path_x, path_y, dot_count, dot_amp-24, dot_step-24)
+    draw_path(path_x, path_y, dot_count, dot_amp-48, dot_step-48)
+    draw_path(path_x, path_y, dot_count, dot_amp-72, dot_step-72)
+    
+    fill(1, 0, 0)
+    stroke(None)
+    oval(center-8, center-8, dot_size_x, dot_size_y)
+    
     dot_step += 0.1
     
 saveImage("dbe_2016_03_19_v1.gif")
