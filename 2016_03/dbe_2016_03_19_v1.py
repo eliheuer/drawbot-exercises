@@ -44,19 +44,18 @@ def new_page():
     fill(0.8) 
     rect(0, 0, canvas, canvas) 
         
-def box(x_pos, y_pos, box_size_x, box_size_y, box_rt):
+def dot(x_pos, y_pos, dot_size_x, dot_size_y, box_rt):
     fill(1)
     strokeWidth(1)
     stroke(0.3)
-    rotate(box_rt)
-    rect((x_pos - 2) + center, (y_pos - 2) + center, box_size_x, box_size_y)
+    oval((x_pos - 2) + center, (y_pos - 2) + center, dot_size_x, dot_size_y)
     
 def draw_path(path_x, path_y, box_count, dot_amp, box_step, box_rt):
      
     for segment in range(box_count):
-        box_x = math.cos(box_step) * box_amp
-        box_y = math.sin(box_step) * box_amp
-        box(box_x, box_y, box_size_x, box_size_y, box_rt)
+        box_x = math.cos(dot_step) * dot_amp
+        box_y = math.sin(dot_step) * dot_amp
+        dot(dot_x, dot_y, dot_size_x, dot_size_y)
         
         box_step += 0.01 * math.pi
        
@@ -82,7 +81,7 @@ for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
     translate(-16, -16)
-    draw_path(path_x, path_y, box_count, box_amp, box_step, box_rt)
+    draw_path(path_x, path_y, dot_count, dot_amp, dot_step)
     box_count_string = "{:03d}".format(box_count)
     box_step += 0.1
     
