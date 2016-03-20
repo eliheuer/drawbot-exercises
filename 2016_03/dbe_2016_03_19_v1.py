@@ -31,38 +31,35 @@ path_y = 0
 divisions = 0
 
 # box variables
-box_size_x = 36 
-box_size_y = 36
-box_amp = 74
-box_step = 0
-box_count = 51
-box_rt = 0
+dot_size_x = 16 
+dot_size_y = 16
+dot_amp = 128
+dot_step = 25
+dot_count = 51
 
 def new_page(): 
     newPage(canvas, canvas) 
     frameDuration(1/24) 
-    fill(0.8) 
+    fill(0.1) 
     rect(0, 0, canvas, canvas) 
         
-def dot(x_pos, y_pos, dot_size_x, dot_size_y, box_rt):
-    fill(1)
-    strokeWidth(1)
-    stroke(0.3)
-    oval((x_pos - 2) + center, (y_pos - 2) + center, dot_size_x, dot_size_y)
+def dot(dot_x, dot_y, dot_size_x, dot_size_y):
+    fill(1, 0, 0)
+    stroke(None)
+    oval((dot_x - 2) + center, (dot_y - 2) + center, dot_size_x, dot_size_y)
     
-def draw_path(path_x, path_y, box_count, dot_amp, box_step, box_rt):
-     
-    for segment in range(box_count):
-        box_x = math.cos(dot_step) * dot_amp
-        box_y = math.sin(dot_step) * dot_amp
+def draw_path(path_x, path_y, dot_count, dot_amp, dot_step):
+    for segment in range(dot_count):
+        dot_x = math.cos(dot_step) * dot_amp
+        dot_y = math.sin(dot_step) * dot_amp
         dot(dot_x, dot_y, dot_size_x, dot_size_y)
         
-        box_step += 0.01 * math.pi
+        dot_step += 0.01 * math.pi
        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
-    stroke(0.3) 
+    stroke(1) 
     fill(None)
     
     step_x = 0 
@@ -82,7 +79,7 @@ for frame in range(num_frames):
     grid(origin, width, height, num_x_units, num_y_units)
     translate(-16, -16)
     draw_path(path_x, path_y, dot_count, dot_amp, dot_step)
-    box_count_string = "{:03d}".format(box_count)
-    box_step += 0.1
+    #box_count_string = "{:03d}".format(box_count)
+    dot_step += 0.1
     
 saveImage("dbe_2016_03_19_v1.gif")
