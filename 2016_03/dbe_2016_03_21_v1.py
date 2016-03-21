@@ -31,12 +31,13 @@ path_y = 0
 divisions = 0
 
 # box variables
-dot_size_x = 20
-dot_size_y = 20
+dot_size_x = 32
+dot_size_y = 32
 dot_amp = 120
 dot_step = 0
 dot_count = 1
 dot_shift = 0
+dot_x = 0
 
 #itertools
 seq_up = range(4, 256, 4)
@@ -59,7 +60,7 @@ def draw_path(path_x, path_y, dot_count, dot_amp, dot_step, fill):
     for segment in range(dot_count):
         dot_x = 0
         dot_y = math.sin(dot_step) * dot_amp
-        dot(dot_x-8, dot_y-8, dot_size_x, dot_size_y, fill)     
+        dot(dot_x-16, dot_y-16, dot_size_x, dot_size_y, fill)     
         dot_step += 0.01 * math.pi
        
 def grid(origin, width, height, num_x_units, num_y_units):
