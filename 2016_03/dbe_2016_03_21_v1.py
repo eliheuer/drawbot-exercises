@@ -10,12 +10,11 @@
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 # from drawBot import * # uncomment if using setupAsModule.py
-import math 
 import itertools 
 
 # static variables
 canvas = 512 
-num_frames = 126
+num_frames = 64
 
 # gird variables
 origin = (128, 128)
@@ -25,25 +24,18 @@ center = width/2
 num_x_units = 8
 num_y_units = 8
 
-# path variables
-path_x = 0
-path_y = 0
-divisions = 0
-
 # box variables
 dot_size_x = 32
 dot_size_y = 32
-dot_amp = 120
-dot_step = 0
-dot_count = 1
-dot_shift = 0
 dot_x = 0
+dot_y = 0
 
 #itertools
-seq_up = range(4, 256, 4)
-seq_dn = range(256, 4, -4)
+seq_up = [20, 30, 40, 50, 60, 70, 80, 90, 100, 105, 110, 114, 116, 118, 119, 120]
+seq_dn = [119, 118, 116, 114, 110, 100, 90, 80, 70, 60, 50, 40, 30, 20, 0]
 seq = seq_up + seq_dn
 print seq
+print len(seq)
 seq_step = itertools.cycle(seq)
 
 def new_page(): 
@@ -51,22 +43,11 @@ def new_page():
     frameDuration(1/24) 
     fill(0.025, 0.025, 0.1) 
     rect(0, 0, canvas, canvas) 
-        
-def dot(dot_x, dot_y, dot_size_x, dot_size_y, fill):
-    stroke(None)
-    oval((dot_x - 2) + center, (dot_y - 2) + center, dot_size_x, dot_size_y)
     
-def draw_path(path_x, path_y, dot_count, dot_amp, dot_step, fill):
-    for segment in range(dot_count):
-        dot_x = 0
-        dot_y = math.sin(dot_step) * dot_amp
-        dot(dot_x-16, dot_y-16, dot_size_x, dot_size_y, fill)     
-        dot_step += 0.01 * math.pi
-       
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
-    stroke(0.8, 0.8, 0.1)  
+    stroke(1, 1, 1)  
     fill(None)
     
     step_x = 0 
@@ -85,20 +66,21 @@ for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
     fill(0.9, 0, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp, dot_step+dot_shift*6, fill)
+    stroke(None)
+    oval((dot_x - dot_size_x/2) + center, (dot_y-128) + center, dot_size_x, dot_size_y) 
 
-    dot_step += 0.1
-    dot_shift += 0.1
-    dot_count = seq_step.next()
-    dot_count_string = "{:.1f}".format(dot_count)
+    dot_y = seq_step.next()
+    dot_y_string = "{:.1f}".format(dot_y)
         
     # type 
-    fontSize(24)
+    fontSize(32)
     font("Helvetica Neue Bold")
     fill(1, 1, 1)
     stroke(None)
-    text("Dot Count:", (-2, -32))
+    text("Y Position:", (-2, -32))
+    text("Frame Count:", (-2, -64))
     fill(1, 0, 0)
-    text(dot_count_string, (-2, -64))
+    text(dot_y_string, (170, -32))
+    text(dot_y_string, (220, -64))
     
 saveImage("dbe_2016_03_21_v1.gif")
