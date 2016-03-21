@@ -31,12 +31,29 @@ dot_x = 0
 dot_y = 0
 
 #itertools
-seq_up = [20, 30, 40, 50, 60, 70, 80, 90, 100, 105, 110, 114, 116, 118, 119, 120]
-seq_dn = [119, 118, 116, 114, 110, 100, 90, 80, 70, 60, 50, 40, 30, 20, 0]
+seq_up = [5, 30, 40, 50, 60, 70, 80, 90, 100, 105, 110, 114, 116, 118, 119, 120]
+seq_dn = [119, 118, 116, 114, 110, 105, 100, 90, 80, 70, 60, 50, 40, 30, 20, 0]
+
+seq_x_up_size = [32, 32, 36, 34, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
+seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 30, 60, 60, 40]
+
+seq_y_up_size = [32, 40, 38, 36, 34, 32, 32, 32, 32, 32, 32, 32, 32, 30, 30, 30]
+seq_y_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 34, 36, 40, 40, 28, 28]
+
 seq = seq_up + seq_dn
+seq_x_size = seq_x_up_size + seq_x_dn_size
+seq_y_size = seq_y_up_size + seq_x_dn_size
+
 print seq
+print seq_x_size
+print seq_y_size
+print len(seq_x_size)
+print len(seq_y_size)
 print len(seq)
+
 seq_step = itertools.cycle(seq)
+seq_x_size_step = itertools.cycle(seq_x_size)
+seq_y_size_step = itertools.cycle(seq_y_size)
 
 def new_page(): 
     newPage(canvas, canvas) 
@@ -67,9 +84,13 @@ for frame in range(num_frames):
     grid(origin, width, height, num_x_units, num_y_units)
     fill(0.9, 0, 0.1)
     stroke(None)
-    oval((dot_x - dot_size_x/2) + center, (dot_y-128) + center, dot_size_x, dot_size_y) 
-
+    
+    dot_size_x = seq_x_size_step.next()
+    dot_size_y = seq_y_size_step.next()
     dot_y = seq_step.next()
+    
+    oval((dot_x - dot_size_x/2) + center, (dot_y-128) + center, dot_size_x, dot_size_y) 
+    
     dot_y_string = "{:.1f}".format(dot_y)
         
     # type 
