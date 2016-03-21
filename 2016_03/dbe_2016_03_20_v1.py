@@ -96,7 +96,7 @@ for frame in range(num_frames):
     fill(0.9, 0.9, 0.3)
     stroke(None)
     oval(center-10, center-10, dot_size_x, dot_size_y)
-    dot_step += 0.05
+    dot_step += 0.1
     dot_shift += 0.1
     dot_count = seq_step.next()
     dot_count_string = "{:.1f}".format(dot_count)
