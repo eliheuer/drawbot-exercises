@@ -2,7 +2,7 @@
 #                                                                             #
 #  Eli Heuer's daily DrawBot exercise!                                        #
 #                                                                             #
-#  WWW: https://www.tumblr.com/blog/drawbot-exercises                         #
+#  Web: https://www.tumblr.com/blog/drawbot-exercises                         #
 #  Mail: eliheuer@gmail.com                                                   #
 #  Drawn on: 03/20/16 -- version 1                                            #
 #  Made with DrawBot: http://www.drawbot.com/                                 #
@@ -15,7 +15,7 @@ import itertools
 
 # static variables
 canvas = 512 
-num_frames = 63
+num_frames = 126
 
 # gird variables
 origin = (128, 128)
@@ -36,14 +36,13 @@ dot_size_y = 20
 dot_amp = 120
 dot_step = 0
 dot_count = 1
+dot_shift = 0
 
 #itertools
-
-seq_up = range(0, 100, 4)
-seq_dn = range(100, 0, -4)
+seq_up = range(4, 256, 4)
+seq_dn = range(256, 4, -4)
 seq = seq_up + seq_dn
 print seq
-
 seq_step = itertools.cycle(seq)
 
 def new_page(): 
@@ -66,7 +65,7 @@ def draw_path(path_x, path_y, dot_count, dot_amp, dot_step, fill):
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
-    stroke(1, 0, 0) 
+    stroke(0.025, 0.025, 0.1)  
     fill(None)
     
     step_x = 0 
@@ -85,29 +84,30 @@ for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
     fill(0.9, 0, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp, dot_step, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp, dot_step+dot_shift*6, fill)
     fill(0.9, 0.25, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp-24, dot_step, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp-24, dot_step+dot_shift*5, fill)
     fill(0.9, 0.4, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp-48, dot_step, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp-48, dot_step+dot_shift*4, fill)
     fill(0.9, 0.6, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp-72, dot_step, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp-72, dot_step+dot_shift*3, fill)
     fill(0.9, 0.8, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp-96, dot_step, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp-96, dot_step+dot_shift*2, fill)
     fill(0.9, 0.9, 0.3)
     stroke(None)
     oval(center-10, center-10, dot_size_x, dot_size_y)
-    dot_step += 0.1
-    #dot_count = seq_step.next()
+    dot_step += 0.05
+    dot_shift += 0.1
+    dot_count = seq_step.next()
     dot_count_string = "{:.1f}".format(dot_count)
         
     # type 
-    fontSize(24)
-    font("Helvetica Neue Bold")
-    fill(1, 1, 1)
-    stroke(None)
-    text("Dot Count:", (-2, -32))
-    fill(1, 0, 0)
-    text(dot_count_string, (-2, -64))
+    # fontSize(24)
+    # font("Helvetica Neue Bold")
+    # fill(1, 1, 1)
+    # stroke(None)
+    # text("Dot Count:", (-2, -32))
+    # fill(1, 0, 0)
+    # text(dot_count_string, (-2, -64))
     
 saveImage("dbe_2016_03_20_v1.gif")
