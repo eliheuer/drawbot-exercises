@@ -29,11 +29,12 @@ dot_size_x = 32
 dot_size_y = 32
 dot_x = 0
 dot_y = 0
-dot_amp = 2 # adjusts how high the ball bounces, try 0.5, 1, 4, etc...
+dot_amp = 1 # adjusts how high the ball bounces, try 0.5, 1, 4, etc...
 
+#[16, 31, 45, 58, 70, 81, 91, 100, 108, 115, 121, 126, 130, 133, 135, 136]
 #itertools
-seq_up = [5, 20, 34, 47, 58, 67, 76, 7, 85, 93, 101, 115, 117, 119, 120, 120]
-seq_dn = [120, 119, 118, 117, 116, 115, 113, 110, 100, 90, 80, 70, 50, 20, 0, 0]
+seq_up = [5, 25, 45, 65, 80, 90, 105, 115, 120, 124, 128, 132, 134, 135, 136, 136]
+seq_dn = [136, 135, 134, 132, 128, 124, 120, 115, 105, 90, 80, 65, 45, 25, 0, 0]
 
 seq_x_up_size = [28, 30, 31, 31, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
 seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 30, 30, 46]
@@ -61,20 +62,6 @@ def new_page():
     frameDuration(1/24) 
     fill(0.025, 0.025, 0.1) 
     rect(0, 0, canvas, canvas) 
-
-def ease(ease_frames)
-    ease_in_list = []
-    x = 0
-    y = 16 
-    a = 0 
-
-    for i in range(ease_in_frames):
-        a = x + y
-        my_list.append(a)
-        x = a
-        y -= 1
-
-    return ease_list
     
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
@@ -108,19 +95,20 @@ for frame in range(num_frames):
         dot_size_x, dot_size_y) 
     
     # type 
-    dot_size_y_string = "{:.1f}".format(dot_size_y)
-    dot_size_x_string = "{:.1f}".format(dot_size_x)
-    dot_y_string = "{:.1f}".format(dot_y)
+    dot_size_y_string = "{:03d}".format(dot_size_y)
+    dot_size_x_string = "{:03d}".format(dot_size_x)
+    dot_y_string = "{:03d}".format(dot_y)
     
-    fontSize(24)
+    fontSize(32)
     font("Helvetica Neue Bold")
     fill(1, 1, 1)
     stroke(None)
     text("Y Position:", (-1, -32))
     text("Squash:", (-1, -64))
     text("Stretch:", (-1, -96))
-    text(dot_y_string, (128, -32))
-    text(dot_size_x_string, (100, -64))
-    text(dot_size_y_string, (96, -96))
+    fill(1, 0, 0)
+    text(dot_y_string, (208, -32))
+    text(dot_size_x_string, (208, -64))
+    text(dot_size_y_string, (208, -96))
     
 saveImage("dbe_2016_03_21_v1.gif")
