@@ -14,7 +14,7 @@ import itertools
 
 # static variables
 canvas = 512 
-num_frames = 64
+num_frames = 32
 
 # gird variables
 origin = (128, 128)
@@ -24,25 +24,26 @@ center = width/2
 num_x_units = 8
 num_y_units = 8
 
-# box variables
+# dox variables
 dot_size_x = 32
 dot_size_y = 32
 dot_x = 0
 dot_y = 0
+dot_amp = 2 # adjusts how high the ball bounces, try 0.5, 1, 4, etc...
 
 #itertools
-seq_up = [5, 30, 40, 50, 60, 70, 80, 90, 100, 105, 110, 114, 116, 118, 119, 120]
-seq_dn = [119, 118, 116, 114, 110, 105, 100, 90, 80, 70, 60, 50, 40, 30, 20, 0]
+seq_up = [5, 20, 34, 47, 58, 67, 76, 7, 85, 93, 101, 115, 117, 119, 120, 120]
+seq_dn = [120, 119, 118, 117, 116, 115, 113, 110, 100, 90, 80, 70, 50, 20, 0, 0]
 
-seq_x_up_size = [32, 32, 36, 34, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
-seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 30, 60, 60, 40]
+seq_x_up_size = [28, 30, 31, 31, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
+seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 30, 30, 46]
 
-seq_y_up_size = [32, 40, 38, 36, 34, 32, 32, 32, 32, 32, 32, 32, 32, 30, 30, 30]
-seq_y_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 34, 36, 40, 40, 28, 28]
+seq_y_up_size = [44, 40, 38, 36, 34, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
+seq_y_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 34, 34, 34, 40, 28]
 
 seq = seq_up + seq_dn
 seq_x_size = seq_x_up_size + seq_x_dn_size
-seq_y_size = seq_y_up_size + seq_x_dn_size
+seq_y_size = seq_y_up_size + seq_y_dn_size
 
 print seq
 print seq_x_size
@@ -60,6 +61,20 @@ def new_page():
     frameDuration(1/24) 
     fill(0.025, 0.025, 0.1) 
     rect(0, 0, canvas, canvas) 
+
+def ease(ease_frames)
+    ease_in_list = []
+    x = 0
+    y = 16 
+    a = 0 
+
+    for i in range(ease_in_frames):
+        a = x + y
+        my_list.append(a)
+        x = a
+        y -= 1
+
+    return ease_list
     
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
@@ -89,19 +104,23 @@ for frame in range(num_frames):
     dot_size_y = seq_y_size_step.next()
     dot_y = seq_step.next()
     
-    oval((dot_x - dot_size_x/2) + center, (dot_y-128) + center, dot_size_x, dot_size_y) 
+    oval((dot_x - dot_size_x/2) + center, ((dot_y * dot_amp) - 128) + center, 
+        dot_size_x, dot_size_y) 
     
-    dot_y_string = "{:.1f}".format(dot_y)
-        
     # type 
-    fontSize(32)
+    dot_size_y_string = "{:.1f}".format(dot_size_y)
+    dot_size_x_string = "{:.1f}".format(dot_size_x)
+    dot_y_string = "{:.1f}".format(dot_y)
+    
+    fontSize(24)
     font("Helvetica Neue Bold")
     fill(1, 1, 1)
     stroke(None)
-    text("Y Position:", (-2, -32))
-    text("Frame Count:", (-2, -64))
-    fill(1, 0, 0)
-    text(dot_y_string, (170, -32))
-    text(dot_y_string, (220, -64))
+    text("Y Position:", (-1, -32))
+    text("Squash:", (-1, -64))
+    text("Stretch:", (-1, -96))
+    text(dot_y_string, (128, -32))
+    text(dot_size_x_string, (100, -64))
+    text(dot_size_y_string, (96, -96))
     
 saveImage("dbe_2016_03_21_v1.gif")
