@@ -36,10 +36,10 @@ seq_up = [5, 25, 50, 70, 90, 100, 110, 116, 122, 126, 130, 132, 134, 135, 136, 1
 seq_dn = [136, 135, 134, 132, 130, 126, 122, 116, 110, 100, 90, 70, 50, 20, 0, 0]
 
 seq_x_up_size = [28, 30, 31, 31, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
-seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 42]
+seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 46]
 
 seq_y_up_size = [44, 44, 42, 40, 38, 36, 34, 33, 32, 32, 32, 32, 32, 32, 32, 32]
-seq_y_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 34, 38, 28]
+seq_y_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 34, 40, 28]
 
 seq = seq_up + seq_dn
 seq_x_size = seq_x_up_size + seq_x_dn_size
@@ -59,13 +59,13 @@ seq_y_size_step = itertools.cycle(seq_y_size)
 def new_page(): 
     newPage(canvas, canvas) 
     frameDuration(1/24) 
-    fill(0.025, 0.025, 0.1) 
+    fill(0.05, 0.05, 0.05) 
     rect(0, 0, canvas, canvas) 
     
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
-    stroke(1, 1, 1)  
+    stroke(0.9, 0.9, 0.9)  
     fill(None)
     
     step_x = 0 
@@ -83,7 +83,7 @@ def grid(origin, width, height, num_x_units, num_y_units):
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
-    fill(0.9, 0, 0.1)
+    fill(0.9, 0, 0)
     stroke(None)
     
     dot_size_x = seq_x_size_step.next()
@@ -96,16 +96,16 @@ for frame in range(num_frames):
     dot_size_y_string = "{:03d}".format(dot_size_y)
     dot_size_x_string = "{:03d}".format(dot_size_x)
     dot_y_string = "{:03d}".format(dot_y)
-    fontSize(24)
+    fontSize(18)
     font("input mono")
-    fill(1, 1, 1)
+    fill(0.9, 0.9, 0.9)
     stroke(None)
-    text("y_position:", (-1, -32))
-    text("squash:", (-1, -64))
-    text("stretch:", (-1, -96))
-    fill(0.9, 0, 0.1)
-    text(dot_y_string, (214, -32))
-    text(dot_size_x_string, (214, -64))
-    text(dot_size_y_string, (214, -96))
+    text("y_position:", (-1, -24))
+    text("squash:", (-1, -24*2))
+    text("stretch:", (-1, -24*3))
+    fill(0.9, 0, 0)
+    text(dot_y_string, (224, -24))
+    text(dot_size_x_string, (224, -24*2))
+    text(dot_size_y_string, (224, -24*3))
     
 saveImage("dbe_2016_03_21_v1.gif")
