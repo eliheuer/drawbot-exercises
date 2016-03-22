@@ -95,7 +95,7 @@ for frame in range(num_frames):
     # type 
     dot_size_y_string = "{:03d}".format(dot_size_y)
     dot_size_x_string = "{:03d}".format(dot_size_x)
-    dot_y_string = "{:03d}".format(dot_y)
+    dot_y_string = "{:03d}".format(int(dot_y * dot_amp))
     fontSize(18)
     font("input mono")
     fill(0.9, 0.9, 0.9)
