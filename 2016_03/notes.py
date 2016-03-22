@@ -1,6 +1,12 @@
-# fun with itertools
-from itertools import cycle, chain, repeat
-my_list = range(8, 72, 8)
+my_list = []
+x = 0
+y = 16 
+a = 0 
 
-for i in my_list:
-    print i
+for i in range(16):
+    a = x + y
+    my_list.append(a)
+    x = a
+    y -= 1 
+
+print my_list
