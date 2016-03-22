@@ -29,18 +29,17 @@ dot_size_x = 32
 dot_size_y = 32
 dot_x = 0
 dot_y = 0
-dot_amp = 1 # adjusts how high the ball bounces, try 0.5, 1, 4, etc...
+dot_amp = 1.5 # adjusts how high the ball bounces, try 0.5, 1, 4, etc...
 
-#[16, 31, 45, 58, 70, 81, 91, 100, 108, 115, 121, 126, 130, 133, 135, 136]
 #itertools
-seq_up = [5, 25, 45, 65, 80, 90, 105, 115, 120, 124, 128, 132, 134, 135, 136, 136]
-seq_dn = [136, 135, 134, 132, 128, 124, 120, 115, 105, 90, 80, 65, 45, 25, 0, 0]
+seq_up = [5, 25, 50, 70, 90, 100, 110, 116, 122, 126, 130, 132, 134, 135, 136, 136]
+seq_dn = [136, 135, 134, 132, 130, 126, 122, 116, 110, 100, 90, 70, 50, 20, 0, 0]
 
 seq_x_up_size = [28, 30, 31, 31, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
-seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 30, 30, 46]
+seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 42]
 
-seq_y_up_size = [44, 40, 38, 36, 34, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
-seq_y_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 34, 34, 34, 40, 28]
+seq_y_up_size = [44, 44, 42, 40, 38, 36, 34, 33, 32, 32, 32, 32, 32, 32, 32, 32]
+seq_y_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 34, 38, 28]
 
 seq = seq_up + seq_dn
 seq_x_size = seq_x_up_size + seq_x_dn_size
@@ -90,7 +89,6 @@ for frame in range(num_frames):
     dot_size_x = seq_x_size_step.next()
     dot_size_y = seq_y_size_step.next()
     dot_y = seq_step.next()
-    
     oval((dot_x - dot_size_x/2) + center, ((dot_y * dot_amp) - 128) + center, 
         dot_size_x, dot_size_y) 
     
@@ -98,17 +96,16 @@ for frame in range(num_frames):
     dot_size_y_string = "{:03d}".format(dot_size_y)
     dot_size_x_string = "{:03d}".format(dot_size_x)
     dot_y_string = "{:03d}".format(dot_y)
-    
-    fontSize(32)
-    font("Helvetica Neue Bold")
+    fontSize(24)
+    font("input mono")
     fill(1, 1, 1)
     stroke(None)
-    text("Y Position:", (-1, -32))
-    text("Squash:", (-1, -64))
-    text("Stretch:", (-1, -96))
-    fill(1, 0, 0)
-    text(dot_y_string, (208, -32))
-    text(dot_size_x_string, (208, -64))
-    text(dot_size_y_string, (208, -96))
+    text("y_position:", (-1, -32))
+    text("squash:", (-1, -64))
+    text("stretch:", (-1, -96))
+    fill(0.9, 0, 0.1)
+    text(dot_y_string, (214, -32))
+    text(dot_size_x_string, (214, -64))
+    text(dot_size_y_string, (214, -96))
     
 saveImage("dbe_2016_03_21_v1.gif")
