@@ -2,19 +2,19 @@
 #                                                                             #
 #  Eli Heuer's daily DrawBot exercise!                                        #
 #                                                                             #
-#  Web: https://www.tumblr.com/blog/drawbot-exercises                         #
+#  WWW: https://www.tumblr.com/blog/drawbot-exercises                         #
 #  Mail: eliheuer@gmail.com                                                   #
-#  Drawn on: 03/21/16 -- version 1                                            #
+#  Drawn on: 03/22/16 -- version 1                                            #
 #  Made with DrawBot: http://www.drawbot.com/                                 #
 #                                                                             #
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 # from drawBot import * # uncomment if using setupAsModule.py
-import itertools 
+import math 
 
 # static variables
 canvas = 512 
-num_frames = 32
+num_frames = 63
 
 # gird variables
 origin = (128, 128)
@@ -24,48 +24,29 @@ center = width/2
 num_x_units = 8
 num_y_units = 8
 
-# dox variables
-dot_size_x = 32
-dot_size_y = 32
-dot_x = 0
-dot_y = 0
-dot_amp = 1.5 # adjusts how high the ball bounces, try 0.5, 1, 4, etc...
-
-#itertools
-seq_up = [5, 25, 50, 70, 90, 100, 110, 116, 122, 126, 130, 132, 134, 135, 136, 136]
-seq_dn = [136, 135, 134, 132, 130, 126, 122, 116, 110, 100, 90, 70, 50, 20, 0, 0]
-
-seq_x_up_size = [28, 30, 31, 31, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
-seq_x_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 30, 46]
-
-seq_y_up_size = [44, 44, 42, 40, 38, 36, 34, 33, 32, 32, 32, 32, 32, 32, 32, 32]
-seq_y_dn_size = [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 34, 40, 28]
-
-seq = seq_up + seq_dn
-seq_x_size = seq_x_up_size + seq_x_dn_size
-seq_y_size = seq_y_up_size + seq_y_dn_size
-
-print seq
-print seq_x_size
-print seq_y_size
-print len(seq_x_size)
-print len(seq_y_size)
-print len(seq)
-
-seq_step = itertools.cycle(seq)
-seq_x_size_step = itertools.cycle(seq_x_size)
-seq_y_size_step = itertools.cycle(seq_y_size)
+#type
+type_x_pos = 0 
+type_y_pos = 0
+type_step = 0 
 
 def new_page(): 
     newPage(canvas, canvas) 
     frameDuration(1/24) 
-    fill(0.05, 0.05, 0.05) 
+    fill(0.8) 
     rect(0, 0, canvas, canvas) 
-    
+
+def type(type_x_pos, type_y_pos):
+    fill(1, 0.5, 0.3)
+    strokeWidth(2)
+    stroke(0.2, 0.3, 0.4)
+    fontSize(32)
+    font("Helvetica neue")
+    text("Hello World", (24, 24))
+       
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
-    stroke(0.9, 0.9, 0.9)  
+    stroke(0.5) 
     fill(None)
     
     step_x = 0 
@@ -83,29 +64,15 @@ def grid(origin, width, height, num_x_units, num_y_units):
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
-    fill(0.9, 0, 0)
-    stroke(None)
+    translate(128, 128)
+    type(type_x_pos, type_y_pos)
+    type_step += 0.1
     
-    dot_size_x = seq_x_size_step.next()
-    dot_size_y = seq_y_size_step.next()
-    dot_y = seq_step.next()
-    oval((dot_x - dot_size_x/2) + center, ((dot_y * dot_amp) - 128) + center, 
-        dot_size_x, dot_size_y) 
+    fill(1)
+    strokeWidth(2)
+    stroke(0)
+    fontSize(32)
+    font("Helvetica neue")
+    text("Hello World", (-124, -124))
     
-    # type 
-    dot_size_y_string = "{:03d}".format(dot_size_y)
-    dot_size_x_string = "{:03d}".format(dot_size_x)
-    dot_y_string = "{:03d}".format(int(dot_y * dot_amp))
-    fontSize(18)
-    font("input mono")
-    fill(0.9, 0.9, 0.9)
-    stroke(None)
-    text("y_position:", (-1, -24))
-    text("squash:", (-1, -24*2))
-    text("stretch:", (-1, -24*3))
-    fill(0.9, 0, 0)
-    text(dot_y_string, (224, -24))
-    text(dot_size_x_string, (224, -24*2))
-    text(dot_size_y_string, (224, -24*3))
-    
-saveImage("dbe_2016_03_21_v1.gif")
+saveImage("dbe_2016_03_22_v1.gif")
