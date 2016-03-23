@@ -14,34 +14,38 @@ import math
 
 # static variables
 canvas = 512 
-num_frames = 63
+num_frames = 36
 
 # gird variables
-origin = (128, 128)
-width = 256
-height = 256
+origin = (32, 32)
+width = 448
+height = 448
 center = width/2
-num_x_units = 8
-num_y_units = 8
+num_x_units = 14
+num_y_units = 14
 
 #type
 type_x_pos = 0 
 type_y_pos = 0
 type_step = 0 
+hw_rt = 0
+hw_fs = 36 * 2
+hw_x_pos = 0
+hw_y_pos = 0
 
 def new_page(): 
     newPage(canvas, canvas) 
-    frameDuration(1/24) 
+    frameDuration(1/4) 
     fill(0.8) 
     rect(0, 0, canvas, canvas) 
 
-def type(type_x_pos, type_y_pos):
-    fill(1, 0.5, 0.3)
-    strokeWidth(2)
-    stroke(0.2, 0.3, 0.4)
-    fontSize(32)
-    font("Helvetica neue")
-    text("Hello World", (24, 24))
+def hello_world(hw_x_pos, hw_y_pos, hw_rt, hw_fs):
+    fill(0)
+    fontSize(hw_fs)
+    rotate(hw_rt)
+    tracking(-2)
+    font("Helvetica neue Bold")
+    text("Hello World", (-4, 0))
        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
@@ -64,15 +68,9 @@ def grid(origin, width, height, num_x_units, num_y_units):
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
-    translate(128, 128)
-    type(type_x_pos, type_y_pos)
-    type_step += 0.1
-    
-    fill(1)
-    strokeWidth(2)
-    stroke(0)
-    fontSize(32)
-    font("Helvetica neue")
-    text("Hello World", (-124, -124))
-    
+    translate(0, 0)
+    hello_world(hw_x_pos, hw_y_pos, hw_rt, hw_fs)
+    type_step += 1
+    hw_rt += 10  
+
 saveImage("dbe_2016_03_22_v1.gif")
