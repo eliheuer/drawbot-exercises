@@ -49,11 +49,11 @@ def new_page():
 def hello_world(hw_x_pos, hw_y_pos, hw_rt, hw_fs, hw_t):
     fill(0)
     hw_rt = type_rt_step.next()
-    fontSize(hw_fs)
+    fontSize(64)
     rotate(hw_rt)
-    tracking(-2)
+    tracking(-2.2)
     font("Helvetica neue Bold")
-    text("Hello World", (-4, 0))
+    text("Hello World", (-1, 0))
        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(96, 32)
@@ -83,7 +83,4 @@ for frame in range(num_frames):
     hello_world(hw_x_pos, hw_y_pos, hw_rt, hw_fs, hw_t)
     hw_t += 4
  
-    
-    
-
 saveImage("dbe_2016_03_22_v1.gif")
