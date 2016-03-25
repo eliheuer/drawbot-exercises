@@ -101,13 +101,4 @@ for frame in range(num_frames):
     dot_count = seq_step.next()
     dot_count_string = "{:.1f}".format(dot_count)
         
-    # type 
-    # fontSize(24)
-    # font("Helvetica Neue Bold")
-    # fill(1, 1, 1)
-    # stroke(None)
-    # text("Dot Count:", (-2, -32))
-    # fill(1, 0, 0)
-    # text(dot_count_string, (-2, -64))
-    
 saveImage("dbe_2016_03_24_v1.gif")
