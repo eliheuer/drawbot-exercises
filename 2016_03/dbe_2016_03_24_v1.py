@@ -15,7 +15,7 @@ import itertools
 
 # static variables
 canvas = 512 
-num_frames = 126
+num_frames = 60
 
 # gird variables
 origin = (128, 128)
@@ -39,8 +39,8 @@ dot_count = 1
 dot_shift = 0
 
 #itertools
-seq_up = range(4, 256, 4)
-seq_dn = range(256, 4, -4)
+seq_up = range(4, 120, 4)
+seq_dn = range(120, 4, -4)
 seq = seq_up + seq_dn
 print seq
 seq_step = itertools.cycle(seq)
@@ -55,12 +55,12 @@ def dot(dot_x, dot_y, dot_size_x, dot_size_y, fill):
     stroke(None)
     oval((dot_x - 2) + center, (dot_y - 2) + center, dot_size_x, dot_size_y)
     
-def draw_path(path_x, path_y, dot_count, dot_amp, dot_step, fill):
+def draw_path(path_x, path_y, dot_count, dot_amp, dot_step, fill, frame):
     for segment in range(dot_count):
         dot_x = math.cos(dot_step) * dot_amp
         dot_y = math.sin(dot_step) * dot_amp
         dot(dot_x-8, dot_y-8, dot_size_x, dot_size_y, fill)     
-        dot_step += 0.01 * math.pi
+        dot_step += 0.0083 * math.pi
        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
@@ -84,19 +84,18 @@ for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
     fill(0.9, 0.2, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp, dot_step+dot_shift*6, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp, dot_step+dot_shift, fill, frame)
     fill(0.9, 0.4, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp-24, dot_step+dot_shift*5, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp-24, dot_step+dot_shift+0.2, fill, frame)
     fill(0.9, 0.9, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp-48, dot_step+dot_shift*4, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp-48, dot_step+dot_shift+0.4, fill, frame)
     fill(0.2, 0.8, 0.1)
-    draw_path(path_x, path_y, dot_count, dot_amp-72, dot_step+dot_shift*3, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp-72, dot_step+dot_shift+0.6, fill, frame)
     fill(0.1, 0.6, 0.9)
-    draw_path(path_x, path_y, dot_count, dot_amp-96, dot_step+dot_shift*2, fill)
+    draw_path(path_x, path_y, dot_count, dot_amp-96, dot_step+dot_shift+0.8, fill, frame)
     fill(0.1, 0.3, 0.9)
-    stroke(None)
     oval(center-10, center-10, dot_size_x, dot_size_y)
-    dot_step += 0.1
+    dot_step += 0.095
     dot_shift += 0.01
     dot_count = seq_step.next()
     dot_count_string = "{:.1f}".format(dot_count)
