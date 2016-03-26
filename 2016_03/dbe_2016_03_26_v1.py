@@ -1,4 +1,4 @@
-#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#  
+#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/# 
 #                                                                             #
 #  Eli Heuer's daily DrawBot exercise!                                        #
 #                                                                             #
@@ -9,7 +9,7 @@
 #                                                                             #
 #/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
-# from drawBot import * # uncomment if using setupAsModule.py
+from drawBot import * # if using setupAsModule.py
 import math 
 import itertools 
 
