@@ -1,21 +1,23 @@
-#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/# 
-#                                                                             #
-#  Eli Heuer's daily DrawBot exercise!                                        #
-#                                                                             #
-#  Web: https://www.tumblr.com/blog/drawbot-exercises                         #
-#  Mail: eliheuer@gmail.com                                                   #
-#  Drawn on: 03/26/16 -- version 1                                            #
-#  Made with DrawBot: http://www.drawbot.com/                                 #
-#                                                                             #
-#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
+#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/# 
+#                                                                 #
+#  Eli Heuer's daily DrawBot exercise!                            #
+#                                                                 #
+#  Web: https://www.tumblr.com/blog/drawbot-exercises             #
+#  Mail: eliheuer@gmail.com                                       #
+#  Drawn on: 03/26/16 -- version 1                                #
+#  Made with DrawBot: http://www.drawbot.com/                     #
+#                                                                 #
+#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#/#
 
 from drawBot import * # if using setupAsModule.py
 import math 
-import itertools 
+import itertools
+import random
 
 # static variables
 canvas = 512 
 num_frames = 60
+angle_delta = 2*math.pi/num_frames
 
 # gird variables
 origin = (128, 128)
@@ -28,10 +30,10 @@ num_y_units = 8
 # dot variables
 dot_size_x = 20
 dot_size_y = 20
-dot_amp = 120
-dot_step = 0
+dot_angle = 0
 dot_count = 1
 dot_shift = 0
+num_dots = 4
 
 #itertools
 seq_up = range(4, 120, 4)
@@ -40,22 +42,27 @@ seq = seq_up + seq_dn
 print seq
 seq_step = itertools.cycle(seq)
 
-def new_page(): 
+def new_page():
     newPage(canvas, canvas) 
     frameDuration(1/24) 
     fill(0.1, 0.1, 0.2) 
-    rect(0, 0, canvas, canvas) 
-        
-def dot(dot_x, dot_y, dot_size_x, dot_size_y, fill):
+    rect(0, 0, canvas, canvas)
+
+def dot(dot_x, dot_y, dot_size_x, dot_size_y):
     stroke(None)
-    oval((dot_x - 2) + center, (dot_y - 2) + center, dot_size_x, dot_size_y)
+    oval((dot_x-2)+center, (dot_y-2)+center, dot_size_x, dot_size_y)
     
-def draw_path(dot_count, dot_amp, dot_step):
+def draw_path(arc_start, arc_end, dot_rad):
+    current_angle = arc_start_angle
+    while current_angle <= arc_end_angle:
+        dot()
+        current_angle += delta
+    
     for segment in range(dot_count):
-        dot_x = math.cos(dot_step) * dot_amp
-        dot_y = math.sin(dot_step) * dot_amp
-        dot(dot_x-8, dot_y-8, dot_size_x, dot_size_y, fill)     
-        dot_step += 0.0083 * math.pi
+        dot_x = math.cos(dot_angle) * dot_amp
+        dot_y = math.sin(dot_angle) * dot_amp
+        dot(dot_x-8, dot_y-8, dot_size_x, dot_size_y)     
+        dot_angle += 0.0083 * math.pi
        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
@@ -78,27 +85,18 @@ def grid(origin, width, height, num_x_units, num_y_units):
 for frame in range(num_frames):
     new_page()
     grid(origin, width, height, num_x_units, num_y_units)
-    
-    fill(0.9, 0.2, 0.1)
-    draw_path(dot_count, dot_amp, dot_step+dot_shift)
-    
-    fill(0.9, 0.4, 0.1)
-    draw_path(dot_count, dot_amp-24, dot_step+dot_shift+0.2)
-    
-    fill(0.9, 0.9, 0.1)
-    draw_path(dot_count, dot_amp-48, dot_step+dot_shift+0.4)
-    
-    fill(0.2, 0.8, 0.1)
-    draw_path(dot_count, dot_amp-72, dot_step+dot_shift+0.6)
-    
-    fill(0.1, 0.6, 0.9)
-    draw_path(dot_count, dot_amp-96, dot_step+dot_shift+0.8)
-    
-    fill(0.1, 0.3, 0.9)
-    oval(center-10, center-10, dot_size_x, dot_size_y)
-    
-    dot_step += 0.095
-    dot_shift += 0.01
-    dot_count = seq_step.next()
+
+    for d in range(num_dots):
+
+        r = random.random()
+        g = random.random()
+        b = random.random()
+        fill(r, g, b)
         
+        amp = d*24
+        draw_path(dot_count, amp, dot_angle)
+       
+    dot_angle += angle_delta
+    dot_count = seq_step.next()
+    
 saveImage("dbe_2016_03_26_v1.pdf")
