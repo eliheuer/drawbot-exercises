@@ -14,6 +14,8 @@ import math
 import itertools
 import random
 
+
+
 # static variables
 canvas = 512 
 num_frames = 60
@@ -63,7 +65,7 @@ def draw_path(arc_start, arc_end, dot_rad):
         dot_y = math.sin(dot_angle) * dot_amp
         dot(dot_x-8, dot_y-8, dot_size_x, dot_size_y)     
         dot_angle += 0.0083 * math.pi
-       
+        
 def grid(origin, width, height, num_x_units, num_y_units):
     translate(*origin)
     strokeWidth(1)
