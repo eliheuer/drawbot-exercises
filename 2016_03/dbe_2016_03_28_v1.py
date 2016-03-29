@@ -2,7 +2,7 @@
 #                                                     #
 #  Eli Heuer's daily DrawBot exercise!                #
 #                                                     #
-#  Web: https://www.tumblr.com/drawbot-exercises      #
+#  Web: http://drawbot-exercises.tumblr.com/          #
 #  Mail: eliheuer@gmail.com                           #
 #  Drawn on: 03/28/16 -- version 1                    #
 #  Made with DrawBot: http://www.drawbot.com/         #
@@ -35,13 +35,6 @@ dot_count = 1
 dot_shift = 0
 num_dots = 4
 
-#itertools
-seq_up = range(4, 120, 4)
-seq_dn = range(120, 4, -4)
-seq = seq_up + seq_dn
-print seq
-seq_step = itertools.cycle(seq)
-
 def new_page():
     newPage(canvas, canvas) 
     frameDuration(1/24) 
@@ -50,9 +43,10 @@ def new_page():
 
 def dot(dot_x, dot_y, dot_size_x, dot_size_y):
     stroke(None)
-    oval((dot_x-2)+center, (dot_y-2)+center, dot_size_x, dot_size_y)
+    oval((dot_x-2)+center, (dot_y-2)+center,
+         dot_size_x, dot_size_y)
     
-def draw_path(arc_start, arc_end, dot_rad):
+def draw_path(arc_start, arc_end, dot_radius):
     current_angle = arc_start_angle
     while current_angle <= arc_end_angle:
         dot()
@@ -93,10 +87,11 @@ for frame in range(num_frames):
         b = random.random()
         fill(r, g, b)
         
-        amp = d*24
-        draw_path(dot_count, amp, dot_angle)
+        dot_radius = d*24
+        draw_path(dot_start, dot_end, dot_radius)
+        dot_start = 45 + d
+        dot_end = 90 + d
        
     dot_angle += angle_delta
-    dot_count = seq_step.next()
     
 saveImage("dbe_2016_03_28_v1.pdf")
