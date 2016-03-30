@@ -14,8 +14,6 @@ import math
 import itertools
 import random
 
-
-
 # static variables
 canvas = 512 
 num_frames = 60
