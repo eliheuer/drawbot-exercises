@@ -1,5 +1,4 @@
 # first try at a drawbot twitch stream
-
 import math
 
 # static variables
@@ -14,9 +13,9 @@ path_y = 0
 # box variables
 box_size_x = 24
 box_size_y = 24
-box_amp = 24
+box_amp = 32
 box_step = 0
-box_count = 70
+box_count = 32
 
 def new_page():
     newPage(canvas, canvas)
