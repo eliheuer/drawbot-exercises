@@ -94,7 +94,7 @@ for frame in range(num_frames):
     # fill(0.1, 0.3, 0.9)
     # oval(center-10, center-10, dot_size_x, dot_size_y)
     
-    dot_step += 0.195
+    dot_step += 0.395
     dot_shift += 0.01
     dot_count = seq_step.next()
         
